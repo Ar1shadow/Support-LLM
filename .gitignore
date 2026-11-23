@@ -1,0 +1,28 @@
+# 虚拟环境
+.venv-train/
+.venv-infer/
+.venv*/
+
+# 数据（处理后的数据与 ood_raw.jsonl 均不提交）
+data/*
+!data/.gitkeep
+!data/ood_raw.jsonl
+# 模型权重 / 检查点
+checkpoints/
+outputs/
+*.safetensors
+*.bin
+
+# 日志与缓存
+wandb/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+
+
+
+adapters/
+merged/
+runs/
+wandb/
