@@ -2,7 +2,7 @@
 # src/eval_responses.py
 import argparse, json, random, statistics
 from concurrent.futures import ThreadPoolExecutor
-from judge import score
+from judge import score_with_reason
 from metrics import invented_specifics, uses_placeholder, n_words
 
 def bootstrap_ci(xs, iters=2000, seed=0):
@@ -18,11 +18,14 @@ args = p.parse_args()
 recs = [json.loads(l) for l in open(args.gen)]
 resp = [r["responses"][0] for r in recs]  #only the first resp.
 with ThreadPoolExecutor(16) as ex:
-    scores = list(ex.map(lambda r: score(r["question"], r["reference"], r["responses"][0]), recs))
+    judged = list(ex.map(lambda r: score_with_reason(r["question"], r["reference"], r["responses"][0]), recs))
+scores = [s for s, _ in judged]
+reasons = [why for _, why in judged]
 valid = [s for s in scores if s is not None]
 
 summary = {
     "n": len(recs),
+    "n_valid": len(valid),
     "judge_mean": statistics.mean(valid),
     "judge_ci95": bootstrap_ci(valid),
     "invented_rate": statistics.mean(invented_specifics(t) for t in resp),
@@ -30,4 +33,5 @@ summary = {
     "mean_words": statistics.mean(n_words(t) for t in resp),
 }
 print(json.dumps(summary, indent=2))
-json.dump({"summary": summary, "scores": scores}, open(args.out, "w"), indent=2)
+json.dump({"summary": summary, "scores": scores, "reasons": reasons},
+          open(args.out, "w"), indent=2, ensure_ascii=False)

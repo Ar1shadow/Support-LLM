@@ -25,6 +25,14 @@ Score the candidate from 1 to 10. In order of importance:
 3. It does not invent specific facts; unknown details must be placeholders like {{{{Order Number}}}}.
 4. Professional, polite tone without padding. Length alone earns no points.
 
+Hard rule: if the candidate states any concrete detail that the customer did not give and that is
+not a placeholder (e.g. phone number, email, URL, business hours, fee or price, processing time
+or deadline like "3-5 business days" or "within 24 hours", a list of supported payment methods),
+the score is lower than 5 :  Score 4 if it is a minor aside, 3 if the customer is likely to act on it
+(e.g. visit the URL, call the number, wait that long), 2 if the main answer depends on it. 
+Using placeholders elsewhere does not excuse an invented detail. Generic navigation wording ("My Orders", "Account Settings", "Forgot PIN") is not invented.
+ Name the invented detail in the reason.
+
 Return only JSON: {{"score": <integer 1-10>, "reason": "<one sentence>"}}"""
 
 PAIRWISE = """You are comparing two replies from an online store's customer-support assistant.
@@ -46,7 +54,10 @@ def _call(prompt: str):
     for _ in range(3):
         try:
             r = client.chat.completions.create(
-                model=JUDGE_MODEL, temperature=0, max_tokens=200,
+                model=JUDGE_MODEL, temperature=0, 
+                reasoning_effort="low",
+                extra_body={"thinking": {"type": "enabled"}}, 
+                max_tokens=1000,
                 messages=[{"role": "user", "content": prompt}])
             m = re.search(r"\{.*\}", r.choices[0].message.content, re.S)
             if m:
@@ -55,10 +66,16 @@ def _call(prompt: str):
             print("judge error:", e)
     return None
 
-def score(question, reference, candidate):
+def score_with_reason(question, reference, candidate):
+    """返回 (score, reason)；裁判失败时为 (None, None)"""
     out = _call(POINTWISE.format(question=question, reference=reference or "(none)",
                                  candidate=candidate))
-    return int(out["score"]) if out and "score" in out else None
+    if not out or "score" not in out:
+        return None, None
+    return int(out["score"]), out.get("reason")
+
+def score(question, reference, candidate):
+    return score_with_reason(question, reference, candidate)[0]
 
 def compare(question, a, b):
     """+1 = a 更好，-1 = b 更好，两种顺序的结论取平均"""
