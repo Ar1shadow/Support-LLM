@@ -8,6 +8,8 @@ from vllm.lora.request import LoRARequest
 p = argparse.ArgumentParser()
 p.add_argument("--model", default="Qwen/Qwen3-4B-Instruct-2507")
 p.add_argument("--adapter", default=None)      # LoRA 目录，可选
+p.add_argument("--dtype", default="bfloat16")    # T4 上传 half
+p.add_argument("--tp", type=int, default=1)      # Kaggle 双 T4 可以传 2
 p.add_argument("--split", default="test")
 p.add_argument("--n", type=int, default=1)     # 每个 prompt 采样几条
 p.add_argument("--temperature", type=float, default=0.0)
@@ -15,8 +17,13 @@ p.add_argument("--max_tokens", type=int, default=512)
 p.add_argument("--out", required=True)
 args = p.parse_args()
 
+
+
+
+
 ds = load_from_disk("data/support")[args.split]
-llm = LLM(model=args.model, dtype="bfloat16", max_model_len=2048, seed=0,
+llm = LLM(model=args.model, dtype=args.dtype, tensor_parallel_size=args.tp,
+          max_model_len=2048, seed=0,
           enable_lora=args.adapter is not None, max_lora_rank=64)
 sp = SamplingParams(n=args.n, temperature=args.temperature,
                     top_p=0.95 if args.temperature > 0 else 1.0, max_tokens=args.max_tokens)
