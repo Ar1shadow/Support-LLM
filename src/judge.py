@@ -79,11 +79,12 @@ def _call(prompt: str):
                 model=JUDGE_MODEL, temperature=0, 
                 reasoning_effort="low",
                 extra_body={"thinking": {"type": "enabled"}}, 
-                max_tokens=1000,
+                max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}])
-            m = re.search(r"\{.*\}", r.choices[0].message.content, re.S)
+            m = re.search(r"\{.*\}", r.choices[0].message.content or "", re.S)
             if m:
                 return json.loads(m.group(0))
+            print(f"judge warning: finish_reason={r.choices[0].finish_reason}, no JSON parsed")
         except Exception as e:
             print("judge error:", e)
     return None
