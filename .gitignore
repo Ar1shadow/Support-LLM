@@ -4,7 +4,6 @@
 .venv*/
 
 # 数据（处理后的数据与 ood_raw.jsonl 均不提交）
-data/*
 !data/.gitkeep
 !data/ood_raw.jsonl
 # 模型权重 / 检查点
