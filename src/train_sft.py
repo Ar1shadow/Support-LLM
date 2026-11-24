@@ -23,7 +23,10 @@ p.add_argument("--epochs", type=float, default=2)
 p.add_argument("--lr", type=float, default=2e-4)
 p.add_argument("--bs", type=int, default=8)                # per-GPU micro batch size
 p.add_argument("--grad_accum", type=int, default=2)        # keep bs * grad_accum * n_gpu fixed across runs
+# bfloat16 needs Ampere or newer (A100, L4, RTX 30xx+); use float16 on T4 / P100 (Kaggle).
+p.add_argument("--dtype", choices=["bfloat16", "float16"], default="bfloat16")
 args = p.parse_args()
+torch_dtype = getattr(torch, args.dtype)   # weight dtype and mixed-precision compute dtype
 
 state = PartialState()  # process info: rank, number of processes (GPUs) in DDP
 
@@ -41,11 +44,13 @@ peft_config = LoraConfig(
     r=args.rank, lora_alpha=args.alpha or 2 * args.rank, lora_dropout=0.05,
     target_modules=targets, use_dora=args.dora, task_type="CAUSAL_LM")
 
-model_kwargs = {"dtype": torch.bfloat16}
+model_kwargs = {"dtype": torch_dtype}
 if args.qlora:
     model_kwargs["quantization_config"] = BitsAndBytesConfig(
-        load_in_4bit=True, bnb_4bit_quant_type="nf4",
-        bnb_4bit_use_double_quant=True, bnb_4bit_compute_dtype=torch.bfloat16)
+        load_in_4bit=True, 
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_use_double_quant=True, 
+        bnb_4bit_compute_dtype=torch_dtype)
     # A 4-bit model cannot be moved after loading, so place each DDP process's
     # replica on its own GPU explicitly (avoids device_map="auto" sharding).
     model_kwargs["device_map"] = {"": state.local_process_index}
@@ -57,7 +62,9 @@ cfg = SFTConfig(
     gradient_accumulation_steps=args.grad_accum,     # 有效 batch = bs * grad_accum * N_GPU = 16
     learning_rate=args.lr, lr_scheduler_type="cosine", warmup_steps=20,
     # max_length counts tokens of the whole chat-templated sequence(system + user + assistant + special tokens)
-    max_length=1024, bf16=True,
+    max_length=1024,
+    # Mixed precision follows --dtype; fp16 also enables loss scaling to avoid gradient underflow.
+    bf16=args.dtype == "bfloat16", fp16=args.dtype == "float16",
     # Loss only on the assistant completion; prompt tokens are masked with -100.
     completion_only_loss=True,
     gradient_checkpointing=True,
