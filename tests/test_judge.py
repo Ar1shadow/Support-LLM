@@ -48,3 +48,43 @@ def test_compare_keeps_invented_when_one_order_fails(monkeypatch):
     monkeypatch.setattr(judge, "_call", lambda prompt: next(outs))
     r = judge.compare("q", "a", "b")
     assert r["score"] is None and r["invented_a"] == [v] and r["invented_b"] == []
+
+def test_score_kept_when_invented_malformed(monkeypatch):
+    monkeypatch.setattr(judge, "_call", lambda p: {"score": 7, "reason": "r", "invented": "none"})
+    assert judge.score_with_reason("q", "r", "c") == (7, "r", [])
+
+def test_score_non_integer(monkeypatch):
+    monkeypatch.setattr(judge, "_call", lambda p: {"score": "7/10"})
+    assert judge.score_with_reason("q", "r", "c") == (None, None, [])
+    monkeypatch.setattr(judge, "_call", lambda p: {"score": None})
+    assert judge.score_with_reason("q", "r", "c") == (None, None, [])
+
+def test_merge_invented_r1_failed():
+    c = {"text": "plans", "kind": "claim"}; v = {"text": "5 days", "kind": "value"}
+    a, b = judge.merge_invented({}, {"invented_a": [c], "invented_b": [v]})
+    assert a == [v] and b == [c]
+
+def test_parse_invented_normalises_kind():
+    assert judge.parse_invented([{"text": "x", "kind": " Claim "}]) == [{"text": "x", "kind": "claim"}]
+
+def test_parse_invented_warns_on_drop(capsys):
+    judge.parse_invented([{"text": "x", "kind": "other"}, "y"])
+    assert capsys.readouterr().out.count("judge warning: dropped invented entry") == 2
+    judge.parse_invented(None)
+    assert capsys.readouterr().out == ""
+
+def test_extract_json():
+    c = 'Sure: {"score": 5, "invented": [{"text": "{{X}}", "kind": "claim"}], "reason": "a {b}"} trailing }'
+    assert judge._extract_json(c)["score"] == 5
+    assert judge._extract_json('{"x": 1} then {"winner": "A"}') == {"winner": "A"}
+    assert judge._extract_json("no json {oops") is None
+
+def test_new_prompt_sentences():
+    p = judge.POINTWISE.format(question="q", reference="r", candidate="c")
+    w = judge.PAIRWISE.format(question="q", a="a", b="b")
+    for t in (p, w):
+        assert "Hedging does not excuse a concrete value" in t
+        assert "A placeholder standing for a single value is not a defect by itself" in t
+        assert '"kind": "value" | "claim"' in t
+    assert "may itself contain invented values or claims" in p
+    assert "If both replies invent, prefer" in w

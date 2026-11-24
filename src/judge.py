@@ -14,6 +14,7 @@ INVENTED_RULES = """Invented value: a concrete detail the customer did not give,
 placeholder. Examples: a phone number, email, URL, business hours, a fee or price, a processing time
 or deadline like "3-5 business days" or "within 24 hours", a list of supported payment methods.
 A placeholder in its place ({{{{Customer Support Phone Number}}}}, {{{{Website URL}}}}) is fine.
+Hedging does not excuse a concrete value (a number, time window, fee or contact detail): "typically 5-7 business days" is still an invented value.
 
 Invented claim: a store-specific rule, process, capability or completed action stated as fact.
 Examples: "orders can only be cancelled before shipping", "a {{{{Cancellation Fee}}}} applies",
@@ -40,6 +41,9 @@ Reference reply by a support expert (guidance only, the candidate does not need 
 Candidate reply:
 {candidate}
 
+The reference may itself contain invented values or claims; it does not make them acceptable in the candidate.
+A placeholder standing for a single value is not a defect by itself (see the invented-claim rule below).
+
 Score the candidate from 1 to 10. In order of importance:
 1. It addresses what the customer actually asked.
 2. It gives concrete, actionable steps.
@@ -54,12 +58,12 @@ Score 4 if it is a minor aside, 3 if the customer is likely to act on it
 (e.g. visit the URL, call the number, wait that long, rely on the rule), 2 if the main answer depends on it.
 Using placeholders elsewhere does not excuse an invented item. Name each invented item in "invented".
 
-Return only JSON: {{"score": <integer 1-10>, "invented": [{{"text": "<quoted span>", "kind": "value" or "claim"}}], "reason": "<one sentence>"}}
+Return only JSON: {{"score": <integer 1-10>, "invented": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "reason": "<one sentence>"}}
 Use an empty list for "invented" if nothing is invented."""
 
 PAIRWISE = """You are comparing two replies from an online store's customer-support assistant.
 The assistant does not know the store's real data. Text like {{{{Order Number}}}} is a placeholder the system fills in
-later, not a defect.
+later. A placeholder standing for a single value is not a defect by itself (see the invented-claim rule below).
 
 Customer message:
 {question}
@@ -80,11 +84,27 @@ Hard rule: a reply must not invent facts. Two kinds count:
 
 """ + INVENTED_RULES + """
 A reply with an invented value or claim the customer is likely to act on loses to one without,
-unless that other reply fails criterion 1. Do not prefer a reply for its length or formatting.
+unless that other reply fails criterion 1.
+If both replies invent, prefer the one whose invented items matter less to the answer (fewer, or only minor asides); otherwise judge on criteria 1-2. Any invented item, even a minor aside, counts against a reply under criterion 3.
+Do not prefer a reply for its length or formatting.
 List the invented items of each reply separately.
 
-Return only JSON: {{"winner": "A" or "B" or "tie", "invented_a": [{{"text": "<quoted span>", "kind": "value" or "claim"}}], "invented_b": [{{"text": "<quoted span>", "kind": "value" or "claim"}}], "reason": "<one sentence>"}}
+Return only JSON: {{"winner": "A" or "B" or "tie", "invented_a": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "invented_b": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "reason": "<one sentence>"}}
 Use an empty list if a reply invents nothing."""
+
+def _extract_json(content):
+    """从文本里取第一个含 score 或 winner 的 JSON 对象：逐个 '{' 位置 raw_decode，找不到返回 None"""
+    dec = json.JSONDecoder()
+    for i, ch in enumerate(content):
+        if ch != "{":
+            continue
+        try:
+            obj, _ = dec.raw_decode(content, i)
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and ("score" in obj or "winner" in obj):
+            return obj
+    return None
 
 def _call(prompt: str):
     for _ in range(3):
@@ -95,21 +115,27 @@ def _call(prompt: str):
                 extra_body={"thinking": {"type": "enabled"}}, 
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}])
-            m = re.search(r"\{.*\}", r.choices[0].message.content or "", re.S)
-            if m:
-                return json.loads(m.group(0))
+            out = _extract_json(r.choices[0].message.content or "")
+            if out is not None:
+                return out
             print(f"judge warning: finish_reason={r.choices[0].finish_reason}, no JSON parsed")
         except Exception as e:
             print("judge error:", e)
     return None
 
 def parse_invented(raw):
-    """规范化裁判返回的 invented 列表：只保留 {"text": str, "kind": "value"|"claim"}，其余丢弃"""
+    """规范化裁判返回的 invented 列表：只保留 {"text": str, "kind": "value"|"claim"}（kind 去空白转小写）。
+    被丢弃的条目打印一行警告；缺失/None 或整体非 list 不算丢弃"""
     if not isinstance(raw, list):
         return []
-    return [{"text": it["text"], "kind": it["kind"]} for it in raw
-            if isinstance(it, dict) and isinstance(it.get("text"), str)
-            and it.get("kind") in ("value", "claim")]
+    out = []
+    for it in raw:
+        kind = str(it.get("kind")).strip().lower() if isinstance(it, dict) else None
+        if isinstance(it, dict) and isinstance(it.get("text"), str) and it["text"] and kind in ("value", "claim"):
+            out.append({"text": it["text"], "kind": kind})
+        else:
+            print(f"judge warning: dropped invented entry {repr(it)[:120]}")
+    return out
 
 def kinds(items):
     """invented 条目里出现过的 kind 集合"""
@@ -121,7 +147,11 @@ def score_with_reason(question, reference, candidate):
                                  candidate=candidate))
     if not out or "score" not in out:
         return None, None, []
-    return int(out["score"]), out.get("reason"), parse_invented(out.get("invented"))
+    try:
+        sc = int(out["score"])
+    except (TypeError, ValueError):
+        return None, None, []   # 非整数分数：不要抛异常，否则会中断整个线程池
+    return sc, out.get("reason"), parse_invented(out.get("invented"))
 
 def score(question, reference, candidate):
     return score_with_reason(question, reference, candidate)[0]
