@@ -14,8 +14,8 @@ recs = [json.loads(l) for l in open(args.gen)]
 resp = [r["responses"][0] for r in recs]  #only the first resp.
 with ThreadPoolExecutor(16) as ex:
     judged = list(ex.map(lambda r: score_with_reason(r["question"], r["reference"], r["responses"][0]), recs))
-scores = [s for s, _ in judged]
-reasons = [why for _, why in judged]
+scores = [s for s, _, _ in judged]
+reasons = [why for _, why, _ in judged]
 valid = [s for s in scores if s is not None]
 
 summary = {

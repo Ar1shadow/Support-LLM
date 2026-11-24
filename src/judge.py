@@ -8,6 +8,27 @@ load_dotenv()
 client = OpenAI(base_url=os.environ.get("JUDGE_BASE_URL"), api_key=os.environ["JUDGE_API_KEY"])
 JUDGE_MODEL = os.environ["JUDGE_MODEL"]
 
+# 两个裁判共用的“编造事实”定义：value（具体数值）与 claim（规则/流程/能力）
+# 注意：拼进模板后会被 .format()，所以字面花括号要写四层 {{{{...}}}}
+INVENTED_RULES = """Invented value: a concrete detail the customer did not give, written literally instead of as a
+placeholder. Examples: a phone number, email, URL, business hours, a fee or price, a processing time
+or deadline like "3-5 business days" or "within 24 hours", a list of supported payment methods.
+A placeholder in its place ({{{{Customer Support Phone Number}}}}, {{{{Website URL}}}}) is fine.
+
+Invented claim: a store-specific rule, process, capability or completed action stated as fact.
+Examples: "orders can only be cancelled before shipping", "a {{{{Cancellation Fee}}}} applies",
+"you can cancel within {{{{Cancellation Period}}}}", "click the 'Cancel Order' button under
+'{{{{Online Order Interaction}}}}'", "we offer payment plans / store credit / live chat",
+"I have cancelled your order". Wrapping a rule, process or capability in a placeholder does not make it acceptable.
+The placeholder hides the value, but the rule or capability is still made up.
+A step naming a specific button, page or menu through a non-value placeholder is a claim.
+
+Not invented: a placeholder standing for one value the store certainly has ({{{{Customer Support Phone Number}}}},
+{{{{Website URL}}}}); generic navigation wording ("My Orders", "Account Settings", "Forgot PIN"); a generic
+3-5 step flow ("log in, open My Orders, select the order, choose Cancel"); hedged statements such as
+"if your order has not shipped yet, it can usually be cancelled" or "if a cancellation window applies, ...".
+"""
+
 POINTWISE = """You are grading a reply written by an online store's customer-support assistant.
 
 Customer message:
@@ -25,15 +46,16 @@ Score the candidate from 1 to 10. In order of importance:
 3. It does not invent specific facts; unknown details must be placeholders like {{{{Order Number}}}}.
 4. Professional, polite tone without padding. Length alone earns no points.
 
-Hard rule: if the candidate states any concrete detail that the customer did not give and that is
-not a placeholder (e.g. phone number, email, URL, business hours, fee or price, processing time
-or deadline like "3-5 business days" or "within 24 hours", a list of supported payment methods),
-the score is lower than 5 :  Score 4 if it is a minor aside, 3 if the customer is likely to act on it
-(e.g. visit the URL, call the number, wait that long), 2 if the main answer depends on it. 
-Using placeholders elsewhere does not excuse an invented detail. Generic navigation wording ("My Orders", "Account Settings", "Forgot PIN") is not invented.
- Name the invented detail in the reason.
+Hard rule: the candidate must not invent facts. Two kinds count:
 
-Return only JSON: {{"score": <integer 1-10>, "reason": "<one sentence>"}}"""
+""" + INVENTED_RULES + """
+If the candidate contains any invented value or invented claim, the score is lower than 5:
+Score 4 if it is a minor aside, 3 if the customer is likely to act on it
+(e.g. visit the URL, call the number, wait that long, rely on the rule), 2 if the main answer depends on it.
+Using placeholders elsewhere does not excuse an invented item. Name each invented item in "invented".
+
+Return only JSON: {{"score": <integer 1-10>, "invented": [{{"text": "<quoted span>", "kind": "value" or "claim"}}], "reason": "<one sentence>"}}
+Use an empty list for "invented" if nothing is invented."""
 
 PAIRWISE = """You are comparing two replies from an online store's customer-support assistant.
 
@@ -66,13 +88,25 @@ def _call(prompt: str):
             print("judge error:", e)
     return None
 
+def parse_invented(raw):
+    """规范化裁判返回的 invented 列表：只保留 {"text": str, "kind": "value"|"claim"}，其余丢弃"""
+    if not isinstance(raw, list):
+        return []
+    return [{"text": it["text"], "kind": it["kind"]} for it in raw
+            if isinstance(it, dict) and isinstance(it.get("text"), str)
+            and it.get("kind") in ("value", "claim")]
+
+def kinds(items):
+    """invented 条目里出现过的 kind 集合"""
+    return {it["kind"] for it in items}
+
 def score_with_reason(question, reference, candidate):
-    """返回 (score, reason)；裁判失败时为 (None, None)"""
+    """返回 (score, reason, invented)；裁判失败时为 (None, None, [])"""
     out = _call(POINTWISE.format(question=question, reference=reference or "(none)",
                                  candidate=candidate))
     if not out or "score" not in out:
-        return None, None
-    return int(out["score"]), out.get("reason")
+        return None, None, []
+    return int(out["score"]), out.get("reason"), parse_invented(out.get("invented"))
 
 def score(question, reference, candidate):
     return score_with_reason(question, reference, candidate)[0]
