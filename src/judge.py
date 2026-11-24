@@ -48,7 +48,7 @@ Reply B:
 
 Which reply serves the customer better? Judge helpfulness, correctness and whether it invents
 specific facts. Do not prefer a reply because it is longer.
-Return only JSON: {{"winner": "A" or "B" or "tie"}}"""
+Return only JSON: {{"winner": "A" or "B" or "tie", "reason": "<one sentence>"}}"""
 
 def _call(prompt: str):
     for _ in range(3):
@@ -77,13 +77,23 @@ def score_with_reason(question, reference, candidate):
 def score(question, reference, candidate):
     return score_with_reason(question, reference, candidate)[0]
 
+def _winner(r):
+    """裁判返回的 winner 规范成 "A" / "B" / "tie"；缺失或非法时为 None"""
+    return {"a": "A", "b": "B", "tie": "tie"}.get(str(r.get("winner", "")).strip().lower())
+
 def compare(question, a, b):
-    """+1 = a 更好，-1 = b 更好，两种顺序的结论取平均"""
+    """两种顺序各判一次，返回 dict：
+    score: +1 = a 更好，-1 = b 更好，两种顺序的结论取平均；任一次失败为 None（不算平局）
+    ab / ba: 原顺序、交换顺序的原始槽位结论（ba 里的 "A" 指 b），未翻转
+    reason_ab / reason_ba: 两次判决的理由"""
     r1 = _call(PAIRWISE.format(question=question, a=a, b=b)) or {}
     r2 = _call(PAIRWISE.format(question=question, a=b, b=a)) or {}
-    v1 = {"A": 1, "B": -1}.get(r1.get("winner"), 0)
-    v2 = {"A": -1, "B": 1}.get(r2.get("winner"), 0)
-    return (v1 + v2) / 2
+    ab, ba = _winner(r1), _winner(r2)
+    v1 = {"A": 1, "B": -1, "tie": 0}.get(ab)
+    v2 = {"A": -1, "B": 1, "tie": 0}.get(ba)
+    score = None if v1 is None or v2 is None else (v1 + v2) / 2
+    return {"score": score, "ab": ab, "ba": ba,
+            "reason_ab": r1.get("reason"), "reason_ba": r2.get("reason")}
 
 
 

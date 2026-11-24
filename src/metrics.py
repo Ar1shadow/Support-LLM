@@ -1,6 +1,12 @@
-"""规则指标：编造信息检测、占位符检测、回复长度统计。"""
+"""规则指标：编造信息检测、占位符检测、回复长度统计；均值的 bootstrap 置信区间。"""
 # src/metrics.py
-import re
+import random, re, statistics
+
+def bootstrap_ci(xs, iters=2000, seed=0):
+    """均值的 95% bootstrap 置信区间"""
+    rng = random.Random(seed)
+    means = sorted(statistics.mean(rng.choices(xs, k=len(xs))) for _ in range(iters))
+    return means[int(0.025 * iters)], means[int(0.975 * iters)]
 
 PATTERNS = {
     "phone": r"\+?\d[\d\-\s().]{7,}\d",

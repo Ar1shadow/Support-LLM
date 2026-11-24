@@ -1,14 +1,9 @@
 """评测生成结果：汇总规则指标与裁判打分，结果写入 results/。"""
 # src/eval_responses.py
-import argparse, json, random, statistics
+import argparse, json, statistics
 from concurrent.futures import ThreadPoolExecutor
 from judge import score_with_reason
-from metrics import invented_specifics, uses_placeholder, n_words
-
-def bootstrap_ci(xs, iters=2000, seed=0):
-    rng = random.Random(seed)
-    means = sorted(statistics.mean(rng.choices(xs, k=len(xs))) for _ in range(iters))
-    return means[int(0.025 * iters)], means[int(0.975 * iters)]
+from metrics import bootstrap_ci, invented_specifics, uses_placeholder, n_words
 
 p = argparse.ArgumentParser()
 p.add_argument("--gen", required=True)
