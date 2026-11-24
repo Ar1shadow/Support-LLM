@@ -5,7 +5,7 @@
 import argparse, json, os, statistics
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
-from judge import compare
+from judge import compare, kinds
 from metrics import bootstrap_ci
 
 p = argparse.ArgumentParser()
@@ -40,6 +40,8 @@ overall = rates(scores)
 decisive = overall["win"] + overall["lose"]
 flip = {"A": "B", "B": "A", "tie": "tie"}
 slots = [w for v in valid for w in (v["ab"], v["ba"]) if w != "tie"]   # 所有非平局判决选的槽位
+# 某一侧（invented_a / invented_b）在某类 kind 上至少有 1 条标注的样本占 valid 的比例
+inv_rate = lambda side, kind: statistics.mean(kind in kinds(v[side]) for v in valid)
 summary = {
     "n": len(verdicts),
     "n_valid": len(valid),
@@ -55,6 +57,11 @@ summary = {
     "consistency": statistics.mean(v["ab"] == flip[v["ba"]] for v in valid),
     # 非平局判决中选槽位 A 的比例，≈0.5 说明裁判没有位置偏差
     "slot_A_rate": statistics.mean(w == "A" for w in slots) if slots else None,
+    # 编造率：按样本计，任一顺序标出过该类即算 1 次
+    "a_value_rate": inv_rate("invented_a", "value"),
+    "a_claim_rate": inv_rate("invented_a", "claim"),
+    "b_value_rate": inv_rate("invented_b", "value"),
+    "b_claim_rate": inv_rate("invented_b", "claim"),
 }
 
 by_intent = defaultdict(list)

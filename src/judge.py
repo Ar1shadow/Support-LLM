@@ -58,6 +58,8 @@ Return only JSON: {{"score": <integer 1-10>, "invented": [{{"text": "<quoted spa
 Use an empty list for "invented" if nothing is invented."""
 
 PAIRWISE = """You are comparing two replies from an online store's customer-support assistant.
+The assistant does not know the store's real data. Text like {{{{Order Number}}}} is a placeholder the system fills in
+later, not a defect.
 
 Customer message:
 {question}
@@ -68,9 +70,21 @@ Reply A:
 Reply B:
 {b}
 
-Which reply serves the customer better? Judge helpfulness, correctness and whether it invents
-specific facts. Do not prefer a reply because it is longer.
-Return only JSON: {{"winner": "A" or "B" or "tie", "reason": "<one sentence>"}}"""
+Which reply serves the customer better? In order of importance:
+1. It addresses what the customer actually asked.
+2. It gives concrete, actionable steps.
+3. It does not invent specific facts; unknown details must be placeholders like {{{{Order Number}}}}.
+4. Professional, polite tone without padding. Length alone earns no points.
+
+Hard rule: a reply must not invent facts. Two kinds count:
+
+""" + INVENTED_RULES + """
+A reply with an invented value or claim the customer is likely to act on loses to one without,
+unless that other reply fails criterion 1. Do not prefer a reply for its length or formatting.
+List the invented items of each reply separately.
+
+Return only JSON: {{"winner": "A" or "B" or "tie", "invented_a": [{{"text": "<quoted span>", "kind": "value" or "claim"}}], "invented_b": [{{"text": "<quoted span>", "kind": "value" or "claim"}}], "reason": "<one sentence>"}}
+Use an empty list if a reply invents nothing."""
 
 def _call(prompt: str):
     for _ in range(3):
@@ -116,19 +130,38 @@ def _winner(r):
     """裁判返回的 winner 规范成 "A" / "B" / "tie"；缺失或非法时为 None"""
     return {"a": "A", "b": "B", "tie": "tie"}.get(str(r.get("winner", "")).strip().lower())
 
+def _union(*lists):
+    """按 (text, kind) 去重合并，保持首次出现顺序"""
+    seen, out = set(), []
+    for it in (x for l in lists for x in l):
+        k = (it["text"], it["kind"])
+        if k not in seen:
+            seen.add(k); out.append(it)
+    return out
+
+def merge_invented(r1, r2):
+    """合并两种顺序的 invented 标注，返回 (inv_a, inv_b)。
+    r1 为原顺序；r2 为交换顺序，其 invented_a 属于 b，invented_b 属于 a。格式非法的当作 []"""
+    inv_a = _union(parse_invented(r1.get("invented_a")), parse_invented(r2.get("invented_b")))
+    inv_b = _union(parse_invented(r1.get("invented_b")), parse_invented(r2.get("invented_a")))
+    return inv_a, inv_b
+
 def compare(question, a, b):
     """两种顺序各判一次，返回 dict：
     score: +1 = a 更好，-1 = b 更好，两种顺序的结论取平均；任一次失败为 None（不算平局）
     ab / ba: 原顺序、交换顺序的原始槽位结论（ba 里的 "A" 指 b），未翻转
-    reason_ab / reason_ba: 两次判决的理由"""
+    reason_ab / reason_ba: 两次判决的理由
+    invented_a / invented_b: 两种顺序合并去重后的编造条目 [{"text","kind"}]；某次失败时只含另一次的结果"""
     r1 = _call(PAIRWISE.format(question=question, a=a, b=b)) or {}
     r2 = _call(PAIRWISE.format(question=question, a=b, b=a)) or {}
     ab, ba = _winner(r1), _winner(r2)
     v1 = {"A": 1, "B": -1, "tie": 0}.get(ab)
     v2 = {"A": -1, "B": 1, "tie": 0}.get(ba)
     score = None if v1 is None or v2 is None else (v1 + v2) / 2
+    invented_a, invented_b = merge_invented(r1, r2)
     return {"score": score, "ab": ab, "ba": ba,
-            "reason_ab": r1.get("reason"), "reason_ba": r2.get("reason")}
+            "reason_ab": r1.get("reason"), "reason_ba": r2.get("reason"),
+            "invented_a": invented_a, "invented_b": invented_b}
 
 
 
