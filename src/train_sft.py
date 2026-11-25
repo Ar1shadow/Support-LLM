@@ -85,6 +85,14 @@ trainer = SFTTrainer(model=args.model, args=cfg, train_dataset=train,
 if trainer.is_world_process_zero():
     trainer.model.print_trainable_parameters()
 
+# Keep trainable (LoRA) params in fp32. With --qlora the adapters can come out
+# in the config dtype (bf16), and the fp16 GradScaler cannot unscale bf16 grads:
+# "_amp_foreach_non_finite_check_and_unscale_cuda" not implemented for 'BFloat16'.
+# Safe here: the optimizer is created inside train(). Frozen 4-bit weights are untouched.
+for param in trainer.model.parameters():
+    if param.requires_grad:
+        param.data = param.data.float()
+
 torch.cuda.reset_peak_memory_stats()
 result = trainer.train()
 # Read peak memory before the final evaluate() so it reflects training only.
