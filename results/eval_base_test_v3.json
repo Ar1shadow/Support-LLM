@@ -1,0 +1,1683 @@
+{
+  "summary": {
+    "rubric": "v3",
+    "n": 270,
+    "n_valid": 270,
+    "judge_mean": 5.729629629629629,
+    "judge_ci95": [
+      5.4222222222222225,
+      6.04074074074074
+    ],
+    "invented_rate": 0.15925925925925927,
+    "judge_value_rate": 0.2962962962962963,
+    "judge_claim_rate": 0.1962962962962963,
+    "judge_any_invented_rate": 0.40370370370370373,
+    "placeholder_rate": 0.5962962962962963,
+    "mean_words": 107.48148148148148
+  },
+  "scores": [
+    3,
+    3,
+    4,
+    4,
+    4,
+    6,
+    3,
+    6,
+    8,
+    2,
+    9,
+    8,
+    10,
+    9,
+    3,
+    7,
+    9,
+    3,
+    8,
+    6,
+    3,
+    5,
+    9,
+    6,
+    7,
+    8,
+    4,
+    9,
+    8,
+    9,
+    3,
+    9,
+    4,
+    4,
+    10,
+    7,
+    3,
+    8,
+    7,
+    7,
+    10,
+    5,
+    4,
+    8,
+    4,
+    9,
+    9,
+    7,
+    8,
+    8,
+    3,
+    2,
+    2,
+    2,
+    3,
+    3,
+    2,
+    2,
+    2,
+    4,
+    3,
+    3,
+    5,
+    3,
+    2,
+    4,
+    4,
+    4,
+    3,
+    4,
+    3,
+    4,
+    7,
+    4,
+    9,
+    2,
+    9,
+    2,
+    9,
+    9,
+    5,
+    2,
+    2,
+    5,
+    2,
+    3,
+    9,
+    3,
+    3,
+    2,
+    5,
+    4,
+    7,
+    9,
+    3,
+    3,
+    2,
+    9,
+    5,
+    2,
+    4,
+    4,
+    3,
+    2,
+    4,
+    3,
+    3,
+    4,
+    7,
+    6,
+    8,
+    5,
+    3,
+    3,
+    2,
+    4,
+    3,
+    8,
+    9,
+    3,
+    4,
+    6,
+    2,
+    2,
+    2,
+    7,
+    3,
+    2,
+    2,
+    3,
+    8,
+    4,
+    8,
+    3,
+    10,
+    8,
+    8,
+    4,
+    9,
+    4,
+    4,
+    10,
+    8,
+    8,
+    9,
+    7,
+    4,
+    9,
+    8,
+    7,
+    9,
+    3,
+    3,
+    8,
+    9,
+    8,
+    3,
+    2,
+    5,
+    3,
+    3,
+    9,
+    8,
+    10,
+    8,
+    2,
+    9,
+    9,
+    8,
+    9,
+    3,
+    8,
+    9,
+    2,
+    9,
+    9,
+    9,
+    8,
+    3,
+    9,
+    4,
+    3,
+    4,
+    4,
+    4,
+    8,
+    8,
+    10,
+    4,
+    4,
+    9,
+    9,
+    8,
+    8,
+    7,
+    8,
+    10,
+    9,
+    4,
+    4,
+    10,
+    3,
+    8,
+    5,
+    5,
+    4,
+    10,
+    9,
+    2,
+    10,
+    7,
+    8,
+    3,
+    3,
+    3,
+    2,
+    7,
+    8,
+    2,
+    6,
+    8,
+    6,
+    8,
+    7,
+    9,
+    6,
+    9,
+    5,
+    9,
+    7,
+    5,
+    4,
+    9,
+    9,
+    5,
+    10,
+    5,
+    4,
+    9,
+    9,
+    5,
+    3,
+    5,
+    6,
+    8,
+    8,
+    3,
+    2,
+    3,
+    4,
+    7,
+    8,
+    7,
+    4,
+    10,
+    10,
+    4,
+    3,
+    4,
+    10,
+    9,
+    7,
+    6,
+    10,
+    9,
+    3,
+    7,
+    4,
+    9,
+    4
+  ],
+  "reasons": [
+    "The reply includes an invented support URL and payment-method list, plus an unsupported store capability claim, so the score is below 5.",
+    "The reply gives useful steps, but it invents the store URL and states a store-specific cancellation policy that the customer is likely to rely on.",
+    "It fails to provide actionable cancellation steps and invents app/phone support channels not given by the customer.",
+    "It politely acknowledges the cancellation request and asks for relevant details, but it gives no concrete cancellation steps and mainly requests information rather than guiding the customer through the process.",
+    "The reply is polite and asks for details, but it gives no concrete cancellation steps and includes a hedged store-specific cancellation policy not provided by the customer.",
+    "The reply politely addresses the cancellation request and asks for verification details, but it provides limited concrete cancellation steps and does not guide the customer through the cancellation process.",
+    "The reply gives actionable steps but invents a specific store URL and a cancellation policy, so the customer could act on false details.",
+    "The reply is polite and offers a generic cancellation route, but it asks for unnecessary details (including the order number already given) and provides only minimal actionable guidance rather than clear cancellation steps.",
+    "The reply directly addresses cancellation, requests the needed details with a placeholder, and stays polite and concise without inventing store-specific facts.",
+    "The reply refuses cancellation based on an unsupported capability claim and fails to give concrete cancellation steps, instead asking for details the customer already provided.",
+    "The reply gives clear, actionable removal steps and a fallback request for details, stays polite and professional, and uses only generic guidance without inventing store-specific values or policies.",
+    "The reply directly addresses the change request, asks for the necessary details to proceed, and stays professional without inventing facts; the shipping note is a hedged conditional rather than a concrete policy claim.",
+    "The reply directly answers the request, asks for the necessary swap details, outlines clear next steps, and uses the provided placeholder without inventing store-specific facts.",
+    "The reply politely addresses the change request, asks for the necessary order details and clarification without inventing facts, and provides useful examples, though it does not yet give actual procedural steps.",
+    "The reply is helpful and asks for the necessary item details, but it states a store-specific capability to add items via an 'Edit Order' action without confirming that feature exists.",
+    "The reply asks for the details needed to process a purchase change, but it includes an unnecessary typo correction and requests some extra information while giving only limited actionable guidance.",
+    "The reply directly addresses the swap request, asks for relevant details using the provided order-number placeholder, and gives clear next steps in a polite, concise tone without inventing concrete values or policies.",
+    "The reply asks useful clarifying questions, but it states an unverified store policy that the customer may rely on when deciding whether modification is possible.",
+    "The reply addresses the request, asks for necessary clarification without inventing store-specific facts, and is professional, though it offers limited concrete steps until more details are provided.",
+    "The reply is polite and requests missing details, but it lacks concrete actionable steps and redundantly asks for the order number already provided.",
+    "The reply gives actionable steps, but it asserts an unverified store-specific restriction that the customer is likely to rely on, capping the score below 5.",
+    "The reply is polite and asks for relevant information, but it does not give concrete actionable steps for updating the address and instead defers guidance until details are provided.",
+    "The reply politely addresses the shipping-address update error and asks for concrete troubleshooting details using a proper placeholder, with no invented facts.",
+    "The reply is polite and asks relevant clarifying questions without inventing details, but it lacks concrete troubleshooting steps the customer can try immediately.",
+    "The reply is polite and relevant and asks for necessary details using a placeholder, but it does not yet provide concrete address-modification steps.",
+    "The reply directly addresses the address-editing request, asks for the necessary details using a valid placeholder, and provides helpful guidance without inventing store-specific facts.",
+    "The reply politely asks for useful troubleshooting details, but it includes a concrete example URL that the customer did not provide instead of using a placeholder.",
+    "The reply directly addresses the address-change request, asks for necessary details using placeholders, and remains professional without inventing concrete facts.",
+    "The reply addresses the address-update request, asks for needed details, and gives a generic Account Settings path without inventing store-specific facts.",
+    "The reply directly addresses the address-change request, asks for necessary details with a proper order-number placeholder, and stays polite and actionable without inventing store-specific facts.",
+    "The reply asks for useful details, but it includes a concrete invented fee range that the customer could rely on.",
+    "The reply directly explains where to find early termination fees with concrete account steps and uses placeholders for contact details, without inventing store-specific facts.",
+    "The reply politely asks for order details but does not provide concrete steps and implies a mobile app platform without confirming it exists.",
+    "The reply asks for clarifying details instead of giving concrete steps, and it includes an invented list of payment method examples.",
+    "The reply directly answers the question, requests the necessary details using placeholders, provides concrete next steps, and maintains a professional tone without invented specifics.",
+    "The reply politely addresses the request and asks for relevant details to check early exit fees, but it does not provide direct account-navigation steps.",
+    "The reply fails to give concrete steps to view withdrawal charges and instead provides invented fee ranges that the customer may rely on.",
+    "The reply addresses the question with concrete generic steps and a polite tone, and it avoids inventing any store-specific values or claims while asking for needed details.",
+    "It directly addresses the question with actionable guidance to check the account dashboard/transaction history and request necessary details, in a professional tone, without inventing concrete values or policies.",
+    "It gives a usable generic answer about where to look, but delays the answer by requesting several unnecessary details and is somewhat padded.",
+    "The reply directly addresses the bill lookup request, asks for useful identifying details, offers clear next steps, and contains no invented values or store-specific claims.",
+    "The reply is polite and avoids inventing details, but it mostly asks for clarification and gives no concrete steps for checking or viewing invoice #37777.",
+    "The reply is polite and asks for relevant locating details, but it includes a concrete example URL instead of a placeholder, which counts as an invented value.",
+    "The reply directly addresses the bill-location request, asks for relevant clarifying details, uses placeholders appropriately, and maintains a professional tone without inventing store-specific facts.",
+    "The reply is polite and offers actionable troubleshooting, but it lists concrete third-party storage and payment examples not provided by the customer, so it falls below 5.",
+    "The reply directly answers how to find the invoice with clear, actionable steps and avoids concrete invented values or store-specific claims.",
+    "The reply directly addresses the invoice search question with clear, actionable steps and does not state any invented store-specific values or claims.",
+    "The reply politely asks for relevant clarifying details to locate bill #12588 and avoids inventing store-specific facts, though it offers limited concrete locating steps beyond requesting more information.",
+    "The reply directly addresses the request, politely asks for specific relevant details to locate the bill, and does not invent any facts or store-specific claims.",
+    "The reply appropriately asks for clarifying details needed to locate the bills and does not invent store-specific facts, though it provides no concrete steps yet beyond requesting information.",
+    "The reply misreads the request as personal payment information instead of accepted payment methods and invents a store data-retention policy.",
+    "The main answer lists specific payment methods and a Bank Transfer limitation without placeholders, so it invents store-specific availability.",
+    "The main answer lists specific payment methods as store facts without using placeholders, so it depends on invented values.",
+    "The main answer invents a specific list of accepted payment methods instead of using a placeholder or asking the customer for their region.",
+    "The reply gives a plausible checkout step but invents accepted payment methods and a store security policy.",
+    "The reply gives useful steps but invents a store URL and specific accepted payment methods, so the customer may act on false details.",
+    "The reply invents a concrete list of payment methods the store offers, and the main answer depends on that store-specific list.",
+    "The main answer depends on an invented list of accepted payment methods and a specific website location, so the customer is likely to rely on fabricated store details.",
+    "The main answer relies on a concrete payment-method list and a product-restriction claim that were not provided and are not placeholders.",
+    "The reply does not actually list available payment options as asked; it mostly requests extra details and includes an invented example URL.",
+    "The reply addresses the customer’s question and asks for useful follow-up details, but it invents a concrete return window of 14–30 days instead of using a placeholder, so the score is below 5.",
+    "The reply gives useful cases and next steps, but it invents a concrete return window and states a refund-initiation policy not provided.",
+    "The candidate politely offers help and asks clarifying questions, but it does not actually provide or check any reimbursement policy details or concrete steps, so it only partially addresses the request.",
+    "The reply politely asks for clarification but does not actually provide the reimbursement policy or concrete steps to find it, so it fails to address the customer's request.",
+    "The reply gives specific refund timelines and payment-method examples as concrete facts rather than placeholders, and the timeline is the core answer.",
+    "The reply answers the refund-case question but includes a concrete 30-day return window not provided or placed in a placeholder.",
+    "The answer is relevant and actionable, but it includes a concrete refund timeframe example that was not provided or placed in a placeholder.",
+    "The reply addresses refund situations and asks for order details, but it invents a concrete 30-day return period instead of using a placeholder.",
+    "The reply addresses the refund scenarios clearly and asks for actionable details, but it includes concrete return/refund timeframes as examples instead of placeholders, which could mislead the customer.",
+    "The reply is polite and avoids invented facts, but it does not directly explain how to check the money-back guarantee and gives no concrete self-service steps, instead only requesting order details.",
+    "The reply gives useful steps, but it invents concrete response-time and business-hours values and a privacy policy claim, which the customer might rely on.",
+    "The reply never actually answers whether the customer can lodge a complaint against this business and instead disclaims being the business, which contradicts the setup and is confusing, though it does ask for concrete details and stays polite without inventing facts.",
+    "The reply politely redirects the customer to the appropriate support channel and asks for concrete details, though it does not directly help lodge the claim as requested.",
+    "The reply is polite and gives clear next steps, but it includes an unverified store-specific policy claim in a minor aside.",
+    "The reply directly addresses the claim request, asks for concrete details needed to proceed, and avoids inventing any store-specific facts or policies while maintaining a polite, professional tone.",
+    "The reply refuses the customer's actual request to file a complaint based on an invented store policy, and instead redirects to issue resolution.",
+    "The reply directly addresses the complaint request, asks for necessary details, and gives concrete next steps without inventing store-specific facts or values.",
+    "The main filing step depends on an invented support URL, and the reply also states invented timeframes and claim rules without placeholders.",
+    "The reply directly addresses the reclamation request, asks for necessary details using placeholders, and provides a usable template without inventing store-specific facts or policies.",
+    "Directly addresses the customer's claim request with clear, actionable details to provide and a polite offer to guide next steps, without inventing values or store policies.",
+    "The reply is polite and asks relevant clarifying questions, but it does not give concrete steps or contact information for actually reaching customer service.",
+    "The main answer relies on invented customer-service hours, and the reply also states specific contact channels without placeholders.",
+    "The main answer invents concrete support hours instead of using a placeholder, and it also provides an invented support URL.",
+    "The reply is polite and asks relevant clarifying questions, but it does not provide concrete contact steps or information the customer requested.",
+    "The reply's main answer invents specific customer-support hours instead of using a placeholder or asking for the customer's region, so the customer would rely on unverified information.",
+    "The candidate appropriately asks for more context but invents specific generic business hours instead of using a placeholder, and the customer may rely on those hours.",
+    "The reply directly answers how to contact support with concrete, actionable methods and uses placeholders for store-specific details without inventing facts.",
+    "The reply gives specific support hours and contact-channel capabilities that were not provided, and the customer is likely to rely on the stated hours.",
+    "The reply gives a phone-number placeholder but does not confirm it is free/toll-free, and it invents the availability of a live chat feature that the customer may act on.",
+    "The main answer gives specific support hours as a concrete fact instead of using a placeholder, so the customer could rely on invented information.",
+    "The reply is polite and gathers useful context without inventing details, but it does not yet give concrete steps for actually speaking with someone.",
+    "The reply addresses the request and asks for clarifying details, but it includes a concrete example URL instead of a placeholder, which is a minor invented value.",
+    "The reply politely acknowledges the request and asks for relevant details, but it does not give concrete steps for actually connecting with an operator.",
+    "The reply directly answers the request with concrete, actionable contact options and uses placeholders for unknown phone and order details without inventing values.",
+    "The reply gives useful contact options, but it invents a concrete support email and chat-icon location, so the customer may act on incorrect store-specific details.",
+    "The reply asks useful clarifying questions, but it invents a specific website live-chat button location and capability that the customer is likely to act on.",
+    "The candidate misinterprets the request for connecting to a live person as help drafting a message and provides no concrete steps to chat with a human agent.",
+    "The reply directly confirms speaking to someone, gives actionable next steps with a placeholder phone number, and stays polite without inventing concrete details.",
+    "The reply is polite and addresses the request to contact a human agent, but it does not provide concrete steps to actually connect the customer and instead asks for additional information first.",
+    "The customer asked to talk to an agent, but the reply only asks for more details instead of connecting them or explaining how to reach a human.",
+    "The steps are clear and actionable, but the reply adds an unverified store-specific claim about account capabilities, so it scores below 5.",
+    "The reply asks for sensitive details and only gives vague registration guidance, while inventing example account categories the customer did not provide.",
+    "The reply gives a concrete website URL instead of a placeholder, and the setup steps depend on the customer visiting that invented URL.",
+    "The reply does not answer where to create the store's standard account and relies on unverified platform-specific account capabilities, so the main answer would mislead the customer.",
+    "The reply is polite and avoids inventing facts, but it does not answer the customer's request or provide concrete steps, instead asking for clarification even though the account type placeholder should be resolved by the system.",
+    "The reply gives generic DIY steps and includes invented store-specific details like an example URL, plan periods, and payment methods instead of directly creating or requesting only the needed account details.",
+    "The reply gives actionable steps, but it invents a website URL, which the customer is likely to act on, so it cannot score 5 or higher.",
+    "The reply politely addresses the Pro account request and asks for details, but it invents the store-specific capability that the process can continue without an order number.",
+    "The reply addresses account creation with clear generic steps and a polite tone, though it is not customized to the store and adds some irrelevant troubleshooting fields.",
+    "The reply politely addresses the request and asks relevant intake questions with placeholders, but it does not yet provide concrete step-by-step actions for opening the pro account.",
+    "The reply directly addresses the cancellation request, asks for concrete information using placeholders where needed, and stays polite without inventing store-specific facts.",
+    "The reply politely asks for clarification and uses placeholders, but it does not clearly recognize the likely request to cancel a standard account or provide any concrete cancellation steps.",
+    "The reply gives clear steps, but it invents a specific store URL that the customer could act on instead of using a placeholder.",
+    "The reply is polite and avoids invented facts, but it only asks for extensive information and provides no concrete steps for closing the account.",
+    "The reply gives concrete cancellation steps, but it invents a specific website URL that the customer is likely to act on, so the score is below 5.",
+    "The reply is polite and uses placeholders, but it refuses to provide the requested deletion information and mainly asks for unnecessary details instead of giving concrete account-deletion steps.",
+    "The reply gives useful steps, but it invents a store URL and states a deletion policy as fact, so the customer could act on unreliable details.",
+    "The reply directly addresses cancellation, asks for relevant information using placeholders, and stays polite without inventing store-specific values or policies, though it does not yet provide actual cancellation steps.",
+    "The reply directly answers the question with clear generic steps, uses a placeholder for account details, and avoids inventing specific store policies or values.",
+    "The reply gives useful cancellation steps but invents a website URL and a billing-cycle cancellation policy that the customer could rely on.",
+    "The reply gives useful checkout steps and handles order details with placeholders, but it invents specific delivery methods as examples, which is a minor aside lowering the score below 5.",
+    "The reply is polite and gives generic actionable steps, but it does not directly list or check available shipment options and instead asks for more information.",
+    "The main answer lists specific shipping methods, delivery times, and capabilities that were not provided or placeheld, so the customer would rely on invented details.",
+    "The main answer lists shipping methods with concrete delivery times and a cutoff time that were not provided, so the customer may rely on invented store-specific details.",
+    "The main answer relies on an unverified store-specific claim that shipping options are shown at cart/checkout and that delivery times/costs are listed, plus it points to a page without a double-brace placeholder.",
+    "The reply is polite and asks for the details needed to check delivery methods, but it does not directly provide the store’s delivery options or use placeholders for store-specific information.",
+    "The reply asks for unnecessary details and gives generic shipping options with concrete fees/times instead of store-specific placeholders, so it does not reliably answer the request.",
+    "The main answer lists specific shipping methods, delivery times, and availability as facts without placeholders, so the customer may rely on invented store capabilities.",
+    "The main answer depends on invented shipping timelines, availability details, and rate rules rather than placeholders.",
+    "The reply gives actionable checkout steps, but it invents a specific list of delivery options the store may not offer, which the customer is likely to rely on.",
+    "The reply directly answers the question with actionable steps and only offers generic, hedged guidance without inventing store-specific values or claims.",
+    "The reply generally addresses the request with useful next steps, but it includes an invented example URL, which lowers the score below 5.",
+    "The reply directly addresses the delivery-time question and asks for actionable details without inventing values or store-specific claims, though asking for the delivery address and website/service is slightly more than needed.",
+    "The reply asks for useful order details, but it invents concrete shipping timelines that the customer may rely on instead of using placeholders.",
+    "The reply directly answers the shipping-time question with clear, actionable steps and uses placeholders for store-specific details without inventing concrete values or policies.",
+    "The reply directly addresses the delivery-time question and asks for actionable details, with a polite tone and no invented values or store-specific claims.",
+    "The reply directly addresses the delivery-time question, asks for actionable details needed to check the order, and uses a polite tone without inventing concrete values or store policies.",
+    "The reply addresses the delivery-time question and asks for actionable information, but it includes a non-placeholder example URL, which is a minor invented value.",
+    "The reply directly addresses the delivery-time question, asks for actionable order details with a proper placeholder, and stays professional without inventing store-specific facts.",
+    "The reply is helpful and asks for order/tracking details, but it includes a concrete example URL instead of a placeholder, which is an invented value.",
+    "The reply appropriately asks for the details needed to correct a gold account, but it includes a concrete example URL instead of a placeholder, which is an invented value.",
+    "The reply directly answers the question with clear, generic steps, stays polite, and does not invent any store-specific values or policies.",
+    "The reply appropriately asks for the missing account and change details in a clear, polite way, without inventing facts or store policies; it stops short of giving concrete change steps because the needed information is absent.",
+    "The reply directly addresses the request, uses a safe placeholder, and asks for the specific details needed before giving tailored steps, with a professional tone.",
+    "The reply directly addresses the request, asks for needed clarification, and provides clear generic steps without inventing store-specific facts.",
+    "The reply addresses the request and asks for relevant details using placeholders, but it gives only a next-step request rather than concrete self-service steps for changing the account information.",
+    "The reply mainly asks for information instead of giving direct steps, and it includes a concrete example URL rather than a placeholder.",
+    "The reply directly addresses the request, requests specific needed details using placeholders where appropriate, and remains concise and professional without inventing concrete values or store-specific policies.",
+    "The reply directly addresses the account-detail edit request with clear next steps and placeholders, without inventing store-specific facts or policies.",
+    "The reply is polite, directly addresses the profile-change request, and uses a placeholder for order number, but it mainly requests information rather than providing concrete step-by-step guidance.",
+    "The reply directly helps with downloading bill #12588, provides clear generic steps, asks clarifying questions without inventing store-specific details, and uses a polite tone.",
+    "The reply refuses the core request to download bill #37777 and redirects to a generic external site, with an unverified capability claim as the basis for refusal.",
+    "The reply asks for useful details but invents a store-specific eligibility rule and does not directly retrieve or request the invoice.",
+    "The reply politely acknowledges the request, asks for relevant billing details, and avoids inventing store-specific facts, though it defers concrete access steps until the customer provides information.",
+    "The reply directly answers the customer's request with clear, actionable steps and uses placeholders for unknown support details without inventing facts.",
+    "The reply politely addresses the invoice request and asks for concrete, necessary details without inventing any values or store-specific claims.",
+    "The reply gives clear steps but invents a concrete store URL, which the customer may act on.",
+    "The reply gives clear generic steps, but its main answer relies on an unsupported capability claim that it cannot send emails or invoices.",
+    "The reply is polite and requests clarifying account details, but it gives no concrete steps for downloading the invoice and does not directly resolve the customer's request.",
+    "The reply is polite but only requests extra information and gives no concrete steps for downloading the invoice, so it does not resolve the customer's question.",
+    "The reply gives useful steps but invents a list of rebate payment methods that the customer may rely on.",
+    "The reply directly addresses the rebate request, asks for relevant information without inventing details, and maintains a polite, actionable tone.",
+    "The reply politely addresses the customer's request by offering to draft a compensation message and asks for specific clarifying details without inventing any store facts or policies.",
+    "The reply directly addresses the refund request, asks for clear actionable information using a proper placeholder, avoids inventing facts or policies, and maintains a professional tone without unnecessary padding.",
+    "The reply directly addresses the reimbursement request and asks for relevant details without inventing facts or policies, though it stops short of giving actual processing steps.",
+    "The reply invents a store policy denying rebates and lists payment methods, and the no-rebate claim is central to the answer.",
+    "The reply directly asks for the information needed to assess the compensation request, gives clear next-step details, and avoids inventing store-specific facts or policies.",
+    "The reply directly addresses the compensation request, asks for concrete required details, and provides actionable next steps using placeholders rather than invented contact information.",
+    "The reply directly addresses the compensation request, asks for relevant details, and provides a clear next step without inventing facts or policies.",
+    "The reply directly addresses the customer's uncertainty with clear, generic steps and requests necessary details without inventing any store-specific facts.",
+    "The reply does not address the customer's newsletter-receiving issue, offers no concrete troubleshooting steps, and unprofessionally repeats the customer's profanity while merely asking for clarification.",
+    "The reply directly addresses newsletter cancellation, requests the email and optional reference details to proceed, uses a placeholder appropriately, and maintains a professional tone without inventing facts.",
+    "The reply directly addresses the cancellation request with clear, actionable generic steps and uses placeholders for unknown details without inventing store-specific values or claims.",
+    "The main instructions depend on an invented store URL, and the reply also states an unverified confirmation-email behavior.",
+    "The reply directly addresses newsletter cancellation with clear self-service steps and uses placeholders for contact details without inventing store-specific facts.",
+    "The reply directly addresses the newsletter subscription request with clear generic steps and uses placeholders for support contact details, avoiding invented facts.",
+    "The candidate directly answers the question with clear, actionable generic steps and uses placeholders for unknown contact details without inventing store-specific facts.",
+    "The reply addresses the subscription request, asks for relevant identifying details using placeholders, and offers generic self-service steps without inventing concrete values or store-specific policies.",
+    "The reply gives actionable steps but relies on an invented store URL, so the customer is likely to act on a fabricated value.",
+    "The reply directly addresses the cancellation request with clear generic steps and uses placeholders for store-specific contact details without inventing facts.",
+    "The reply is polite and asks for useful details, but it does not clearly explain how to inform support about a payment issue and includes an invented list of payment method examples.",
+    "The reply gives useful contact steps, but it invents a 24-hour response time and business-hours availability, which the customer could rely on.",
+    "The reply is relevant and actionable, but it includes a concrete list of payment methods not provided by the customer, so it is penalized despite otherwise being professional and clear.",
+    "The reply is polite and asks for useful troubleshooting details, but it includes an invented list of payment methods as examples.",
+    "The reply is helpful and actionable, but it includes an invented list of payment methods, which lowers the score despite otherwise addressing the customer's request well.",
+    "The reply directly addresses the payment-problem request by asking for relevant details in a clear, polite way, with no invented values or store-specific claims.",
+    "The reply is polite and directly asks for relevant details to troubleshoot the payment issue without inventing store-specific values or policies.",
+    "The reply directly answers the question with concrete, actionable steps and uses placeholders for store-specific contact and order details without inventing facts.",
+    "The reply is helpful and specific, but it names example payment methods not provided by the customer, which counts as an invented value.",
+    "The reply is clear and actionable, but it includes an invented list of payment methods as examples, so it cannot score 5 or higher.",
+    "It directly answers how to purchase with clear, actionable steps and avoids concrete invented values, though the bracketed URL placeholder is nonstandard and the order-number note is slightly unnecessary.",
+    "The reply directly addresses the customer's difficulty with clear, generic shopping steps and politely asks for specifics without inventing concrete store details.",
+    "The reply directly offers shopping assistance and asks clear, relevant clarifying questions without inventing store-specific facts, though it could provide more concrete next-step guidance.",
+    "The reply addresses the customer's request with clear, actionable generic shopping steps and offers further help for specific products without inventing concrete store details.",
+    "The reply politely addresses the ambiguous request by asking targeted clarifying questions without inventing store-specific facts, though it does not yet provide concrete earning steps because the request is unclear.",
+    "The reply politely addresses the request and asks for relevant purchase details without inventing any store-specific facts or values.",
+    "The reply directly addresses the purchase assistance request, provides clear actionable information to collect, avoids invented details, and maintains a professional, polite tone.",
+    "The reply politely addresses the request by asking for specific product and purchase details, and it does not state any invented store-specific facts.",
+    "The reply helpfully asks for the details needed to order, but it introduces a phone-ordering option that was not stated or confirmed by the store.",
+    "The reply gives clear, actionable generic steps, but it invents a concrete list of payment methods not provided by the customer.",
+    "The reply directly addresses the password reset request with clear, actionable steps and does not invent any store-specific facts or values.",
+    "The reply acknowledges the PIN reset request and stays polite, but it only asks for account details and provides no concrete reset steps.",
+    "The reply politely addresses the PIN recovery question by asking for relevant details needed to help, with no invented facts or store-specific claims.",
+    "The reply politely addresses the PIN reset request and asks for relevant details using placeholders, but it provides no concrete resetting steps, only a promise to guide after collecting information.",
+    "The reply is polite and does not invent details, but it only requests information and provides no concrete reset steps, so it only partially addresses the customer's request.",
+    "The recovery steps are clear and relevant, but the reply asserts an unsupported store policy that PINs cannot be provided directly.",
+    "The reply directly addresses the password reset request with clear, generic steps and no invented store-specific values or claims.",
+    "The reply directly addresses PIN restoration with clear, actionable steps and uses placeholders for unknown support contact details; no concrete invented values or store-specific claims are present.",
+    "The main resolution path relies on store-specific website sections/options presented as real without placeholders.",
+    "The reply directly answers the password-recovery request with clear, generic steps and uses placeholders for any account-specific details without inventing store facts.",
+    "The reply politely acknowledges the issue and asks for concrete clarifying details without inventing facts, but it stops short of providing the actual steps to report signup errors.",
+    "The reply directly addresses the request by asking for relevant registration-problem details and providing clear next-step guidance without inventing store-specific facts.",
+    "The reply is actionable but invents a confirmation email and a 24-hour follow-up timeframe, which the customer may rely on.",
+    "The reply is actionable, but it invents a live-chat capability and a 24-business-hour response time, the latter being a concrete time the customer may rely on.",
+    "The reply is helpful and concrete, but it invents specific support channels (live chat/email form) without placeholders, which the customer may rely on.",
+    "The reply gives concrete contact details that were not provided and are not placeholders, and the customer is likely to act on them.",
+    "The reply is polite and appropriately asks for clarifying details, but it does not yet provide concrete steps because the customer's request is too vague.",
+    "The reply directly addresses the customer’s sign-up problem by asking for specific details and examples needed to help, with a polite and concise tone and no invented facts.",
+    "The reply misinterprets the request and bases its main answer on an unverified store notification capability, although it does include some actionable troubleshooting details.",
+    "The reply is professional and lists useful details to provide, but it does not explain how to submit them or name a contact channel, so it only partially answers the customer's question.",
+    "The reply is polite, directly addresses the feedback request, and asks relevant clarifying questions without inventing any store-specific facts; however, it does not yet provide concrete submission steps.",
+    "The reply is polite and addresses the request, but it only asks for details and does not provide concrete, actionable submission steps.",
+    "The reply politely addresses the feedback request and asks for relevant clarifying details before giving step-by-step guidance, with no clear invented values or store-specific claims.",
+    "The reply politely asks clarifying questions to help draft a review and contains no invented store-specific details, though it could be more direct and address the offensive language.",
+    "The reply directly answers how to leave feedback with clear, actionable options and uses a placeholder for the support email without inventing store-specific details.",
+    "The reply politely offers feedback channels but does not provide the requested address and relies on placeholders, so it is only partially actionable.",
+    "The reply politely addresses the customer's request, asks for relevant details to guide them, and avoids inventing store-specific facts or values.",
+    "The reply is polite and offers to help craft a comment, but it misreads the request as writing review text rather than explaining how to leave a comment and gives no concrete steps for posting it.",
+    "The reply directly addresses the request, asks clear actionable questions to personalize the opinion, uses a polite tone, and does not invent any store-specific facts or values.",
+    "The reply is polite and relevant, asking for useful details to help the customer leave feedback, but it does not yet provide concrete steps for submitting the review.",
+    "The candidate politely requests relevant information but does not provide concrete step-by-step instructions for submitting the shipping address.",
+    "The main steps are actionable and mostly generic, but it states an unverified live chat support capability as fact.",
+    "The reply directly answers the question with clear, actionable steps and uses placeholders for store-specific contact details without inventing facts.",
+    "The reply directly answers the address setup question with clear, actionable steps and a polite tone without introducing concrete store-specific values or policies.",
+    "The reply is polite and relevant, but it mainly asks for customer details rather than giving concrete step-by-step instructions for entering a secondary delivery address, and its only navigation hint is hedged and generic.",
+    "The reply directly answers the request with clear, actionable steps and uses a placeholder for order-specific information without inventing store details.",
+    "The reply is polite and addresses the request, but it asks clarifying questions instead of providing concrete step-by-step instructions for updating the delivery address.",
+    "The reply gives clear actionable steps, but it invents a store capability to choose default or specific-order address usage.",
+    "The reply directly answers the question with clear, actionable generic steps and invents no store-specific details; the only minor issue is the slightly extraneous order-number note.",
+    "The reply directly addresses the shipping-address setup issue with clear, actionable troubleshooting steps, uses a placeholder for order details, and maintains a professional tone without inventing store-specific values or claims.",
+    "The reply politely addresses the request but only asks for more details and provides no concrete step-by-step instructions for switching to a freemium account.",
+    "The reply gives useful steps but includes an invented store URL that the customer is likely to rely on, which lowers the score below 5.",
+    "The reply politely asks clarifying questions for an ambiguous request, but it provides no concrete steps or direct assistance.",
+    "The reply is polite and gives generic actionable steps without inventing details, but it does not directly address the requested {{Account Type}} change and asks for unnecessary verification information.",
+    "The reply appropriately asks for clarification on a vague request, offers useful example topics, uses placeholders for unknown details, and maintains a professional tone without inventing facts.",
+    "The reply politely asks for missing platform context and provides generic, actionable steps without inventing store-specific values or claims.",
+    "The reply gives clear, actionable steps, but it invents a concrete store URL that the customer is likely to act on by visiting.",
+    "The reply mainly rejects the request with an unsupported store-specific claim and gives no concrete steps, only clarification questions.",
+    "The reply fails to give concrete switching steps and mainly redirects the customer using an unverified contact-form capability, though the phone number is correctly placeheld.",
+    "The reply politely acknowledges the request and asks for details, but it gives no concrete steps for changing to the Platinum account, so it is not actionable.",
+    "The reply addresses the order-status request and provides a concrete self-service step, though it unnecessarily asks for extra personal details before guiding the customer.",
+    "The reply is polite, relevant, and asks for useful identifying details without inventing store-specific facts, though it defers the concrete locating steps until after confirmation.",
+    "The reply addresses the order-location request with actionable self-service and support-contact steps, uses the order-number placeholder correctly, and stays professional without inventing store-specific details.",
+    "The reply addresses the ETA request and asks for actionable details, but it includes invented example store names instead of using placeholders, which lowers the score.",
+    "The reply directly answers how to check the ETA with clear, generic steps and uses a placeholder for the phone number without inventing store-specific facts.",
+    "The reply directly addresses locating the order, gives clear actionable steps, uses placeholders for store-specific contact details, and maintains a polite, concise tone without inventing facts.",
+    "The reply asks for the order number already provided and gives no concrete tracking steps, and it includes an unnecessary concrete example URL instead of a placeholder.",
+    "The reply gives clear tracking steps, but it invents a concrete store URL the customer is likely to visit, so the score is capped below 5.",
+    "The reply politely asks for confirmation details but does not directly provide the order status or concrete steps, and it includes an invented example URL.",
+    "The reply directly answers how to check the order status with clear, actionable steps and uses placeholders for support contact details without inventing store-specific facts.",
+    "The reply directly addresses the rebate status request, asks for the needed order number via a placeholder, and stays concise and professional without inventing details.",
+    "The reply politely asks for the details needed to check a restitution status and avoids inventing store-specific facts, but it does not yet provide concrete steps for checking the status until more information is supplied.",
+    "The reply is polite and uses placeholders correctly, but it mainly asks for information and suggests generic channels instead of giving concrete steps for checking restitution status.",
+    "The reply directly addresses the status request, asks for specific identifying details, and provides clear next steps without inventing any facts or policies.",
+    "The reply directly answers the question with clear, actionable steps and uses placeholders for contact details without inventing concrete values.",
+    "The reply is polite and asks for actionable details, but it invents the capability to process the refund, which the customer may rely on.",
+    "The reply is polite and asks for relevant details to locate the order and track the refund, though it does not directly check the compensation status and requests some information that may not be necessary.",
+    "The reply is polite and requests relevant details, but it includes a concrete example URL instead of a placeholder, which is an invented value.",
+    "The reply directly addresses the rebate status request with clear, actionable information requests and maintains a professional tone without inventing details.",
+    "The reply requests relevant details with placeholders but gives no concrete tracking steps and includes a concrete example URL instead of a placeholder."
+  ],
+  "invented": [
+    [
+      {
+        "text": "credit card, PayPal",
+        "kind": "value"
+      },
+      {
+        "text": "https://www.yourstore.com/support",
+        "kind": "value"
+      },
+      {
+        "text": "a payment plan, refund, or store credit",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "[www.yourstore.com](https://www.yourstore.com)",
+        "kind": "value"
+      },
+      {
+        "text": "Cancellations are only possible before the order has been shipped.",
+        "kind": "claim"
+      },
+      {
+        "text": "If the order has already been shipped, we may not be able to cancel it.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "our website, app, or by phone",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "Cancellations are typically only possible before the order has been shipped.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "[www.yourstore.com](https://www.yourstore.com)",
+        "kind": "value"
+      },
+      {
+        "text": "Cancellations are only possible before the order has been shipped.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "I can't cancel order {{Order Number}} at this time",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "click \"Edit Order\" to add the items",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Modifications are not possible after the order has been shipped or processed.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "You can only edit the shipping address if the order has not yet been processed or shipped. If the order has already been shipped, we’re unable to change the address.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "fees range from 0% to 15%",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "mobile app",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "bank transfer, PayPal, crypto",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Bank transfer: $0 to $10 (varies by region)",
+        "kind": "value"
+      },
+      {
+        "text": "PayPal: $1–$3",
+        "kind": "value"
+      },
+      {
+        "text": "Crypto: Often $0 or a small fee",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "Google Drive, Dropbox",
+        "kind": "value"
+      },
+      {
+        "text": "PayPal, Stripe, credit card statements",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "we never share or store payment details",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Credit/Debit Cards (Visa, MasterCard, American Express)",
+        "kind": "value"
+      },
+      {
+        "text": "PayPal",
+        "kind": "value"
+      },
+      {
+        "text": "Bank Transfer (for selected products)",
+        "kind": "value"
+      },
+      {
+        "text": "Mobile Wallets (e.g., Apple Pay, Google Pay)",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Credit/Debit Cards (Visa, Mastercard, Amex)",
+        "kind": "value"
+      },
+      {
+        "text": "PayPal",
+        "kind": "value"
+      },
+      {
+        "text": "Apple Pay",
+        "kind": "value"
+      },
+      {
+        "text": "Google Pay",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Credit/Debit Cards (Visa, Mastercard, American Express), PayPal, Bank Transfer (for selected regions), Mobile Payment (e.g., Apple Pay, Google Pay)",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "credit cards, debit cards, PayPal, and other secure payment services",
+        "kind": "value"
+      },
+      {
+        "text": "We do not store or share payment details. All transactions are processed securely through trusted third-party providers.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      },
+      {
+        "text": "credit/debit cards, digital wallets, or bank transfers",
+        "kind": "value"
+      },
+      {
+        "text": "currently accepted for your order",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Credit/Debit Cards (Visa, Mastercard, Amex)\n- PayPal\n- Bank Transfer (for select regions)\n- Digital Wallets (e.g., Apple Pay, Google Pay)",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Credit and Debit Cards (Visa, MasterCard, American Express, Discover), PayPal, Bank Transfer (for select orders), Digital Wallets (e.g., Apple Pay, Google Pay)",
+        "kind": "value"
+      },
+      {
+        "text": "Bank Transfer (for select orders)",
+        "kind": "claim"
+      },
+      {
+        "text": "check the **\"Payment Methods\"** section under the **\"Shop\"** or **\"Help\"** menu",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Credit/Debit Cards (Visa, Mastercard, American Express)",
+        "kind": "value"
+      },
+      {
+        "text": "PayPal",
+        "kind": "value"
+      },
+      {
+        "text": "Bank Transfer (for selected products)",
+        "kind": "value"
+      },
+      {
+        "text": "for selected products",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "usually within 14–30 days",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "14–30 days",
+        "kind": "value"
+      },
+      {
+        "text": "You must contact customer support to initiate a refund request.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "3–7 business days",
+        "kind": "value"
+      },
+      {
+        "text": "10–14 days",
+        "kind": "value"
+      },
+      {
+        "text": "3–5 business days",
+        "kind": "value"
+      },
+      {
+        "text": "credit card, PayPal, etc.",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "e.g., 30 days",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "e.g., 14 days",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "30 days",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "within a specified time frame (e.g., 14 days)",
+        "kind": "value"
+      },
+      {
+        "text": "Most stores have a time limit (e.g., 30 days)",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "within 3–5 business days",
+        "kind": "value"
+      },
+      {
+        "text": "Monday–Friday, 9 AM – 6 PM",
+        "kind": "value"
+      },
+      {
+        "text": "we will not share your personal information with third parties",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Refund requests are processed based on our return and refund policy",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "we do not accept complaints against our business",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "https://www.yourstore.com/support",
+        "kind": "value"
+      },
+      {
+        "text": "5 business days",
+        "kind": "value"
+      },
+      {
+        "text": "Claims must be submitted within 90 days of the purchase date",
+        "kind": "claim"
+      },
+      {
+        "text": "You will receive a confirmation email with a claim reference number",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "Monday to Friday from 9:00 AM to 6:00 PM (your local time)",
+        "kind": "value"
+      },
+      {
+        "text": "via live chat, email, or phone",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Monday to Friday: 9:00 AM – 6:00 PM (your local time)",
+        "kind": "value"
+      },
+      {
+        "text": "https://www.yourstore.com/support",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "Monday through Friday from 9:00 AM to 6:00 PM EST",
+        "kind": "value"
+      },
+      {
+        "text": "For urgent matters, you can also reach us by phone",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "8:00 AM – 8:00 PM, Monday–Friday",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "Monday to Friday: 9:00 AM – 6:00 PM (local time)",
+        "kind": "value"
+      },
+      {
+        "text": "via email or through our live chat",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "use the live chat feature",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Monday through Friday from 9:00 AM to 6:00 PM EST",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "OurStore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "support@yourstore.com",
+        "kind": "value"
+      },
+      {
+        "text": "click on the chat icon in the bottom right corner",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "click the \"Live Chat\" button in the bottom right corner to speak directly with a representative",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "you’ll have a standard account and can save items, track orders, and access your order history",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Business, Individual, Student",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Amazon – You can create a separate Amazon account for your daughter using her email address and a secure password. This allows her to shop independently while you maintain oversight.",
+        "kind": "claim"
+      },
+      {
+        "text": "Target – Target allows users to create individual accounts for children, which can be useful for managing purchases and tracking orders.",
+        "kind": "claim"
+      },
+      {
+        "text": "Etsy – If your daughter is interested in handmade or craft items, Etsy lets you create a profile for her with her own username and email.",
+        "kind": "claim"
+      },
+      {
+        "text": "Some educational websites (like Khan Academy or Duolingo) allow you to set up accounts for children under parental supervision.",
+        "kind": "claim"
+      },
+      {
+        "text": "You can create a child account on the Apple or Google Play Store to manage app downloads and screen time.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "https://example.com",
+        "kind": "value"
+      },
+      {
+        "text": "monthly or annual subscription",
+        "kind": "value"
+      },
+      {
+        "text": "credit card, PayPal, etc.",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "we can still proceed",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      },
+      {
+        "text": "Once deleted, the account and all associated data (including purchases and saved information) will be permanently removed.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "[www.yourstore.com](https://www.yourstore.com)",
+        "kind": "value"
+      },
+      {
+        "text": "Cancellations are typically effective at the end of the current billing cycle.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "standard, express, or next-day delivery",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "3–7 business days",
+        "kind": "value"
+      },
+      {
+        "text": "2–4 business days",
+        "kind": "value"
+      },
+      {
+        "text": "by the next business day",
+        "kind": "value"
+      },
+      {
+        "text": "available for select regions",
+        "kind": "claim"
+      },
+      {
+        "text": "with customs clearance and tracking for global destinations",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "5–7 business days",
+        "kind": "value"
+      },
+      {
+        "text": "2–3 business days",
+        "kind": "value"
+      },
+      {
+        "text": "orders placed by 2:00 PM (EST)",
+        "kind": "value"
+      },
+      {
+        "text": "next business day",
+        "kind": "value"
+      },
+      {
+        "text": "Shipping rates depend on your location and the weight of the items",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "You can check our shipping options when you're adding items to your cart or during the checkout process on our website.",
+        "kind": "claim"
+      },
+      {
+        "text": "At that point, you'll see a list of available shipping options, including delivery times and costs.",
+        "kind": "claim"
+      },
+      {
+        "text": "visit our [Shipping & Delivery page]",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "free",
+        "kind": "value"
+      },
+      {
+        "text": "3–7 days",
+        "kind": "value"
+      },
+      {
+        "text": "1–3 days",
+        "kind": "value"
+      },
+      {
+        "text": "Next-day delivery",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "We offer several shipment methods",
+        "kind": "claim"
+      },
+      {
+        "text": "5–7 business days",
+        "kind": "value"
+      },
+      {
+        "text": "2–4 business days",
+        "kind": "value"
+      },
+      {
+        "text": "next business day",
+        "kind": "value"
+      },
+      {
+        "text": "Available for select regions",
+        "kind": "claim"
+      },
+      {
+        "text": "Available to many countries",
+        "kind": "claim"
+      },
+      {
+        "text": "slightly higher cost",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Standard Shipping – Delivered in 3–7 business days",
+        "kind": "value"
+      },
+      {
+        "text": "Express Shipping – Delivered in 1–3 business days",
+        "kind": "value"
+      },
+      {
+        "text": "Next Day Delivery – Available for orders placed by 2 PM (EST)",
+        "kind": "value"
+      },
+      {
+        "text": "International Shipping – Available to select countries",
+        "kind": "claim"
+      },
+      {
+        "text": "Shipping rates are calculated at checkout based on your location, order value, and selected option.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "standard shipping, express shipping, or local pickup",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "most orders are shipped within 1–3 business days",
+        "kind": "value"
+      },
+      {
+        "text": "standard shipping: 3–10 business days",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "\"OurStore.com\"",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "www.yourstore.com/gold-account",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.example.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "I can't assist with downloading a bill or accessing personal account information like that",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "We can only assist with requests related to orders placed through our store.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "I can't send emails or invoices on your behalf",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "credited to your account or sent via check or direct deposit",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "credit card, PayPal",
+        "kind": "value"
+      },
+      {
+        "text": "we don’t issue \"rebates\" in the traditional sense — we issue refunds or credits.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      },
+      {
+        "text": "You’ll receive a confirmation email shortly after.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "credit card, PayPal",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "within 24 hours",
+        "kind": "value"
+      },
+      {
+        "text": "during business hours",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "credit card, PayPal, etc.",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "credit card, PayPal",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "credit card, PayPal",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "credit card, PayPal, etc.",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "credit card, PayPal",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "via phone",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "credit card or PayPal",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "we cannot provide PINs directly",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Account Security section",
+        "kind": "claim"
+      },
+      {
+        "text": "\"Reset or Recover PIN\"",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "you’ll receive a confirmation email",
+        "kind": "claim"
+      },
+      {
+        "text": "within 24 hours",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Live Chat: Available on our website",
+        "kind": "claim"
+      },
+      {
+        "text": "within 24 business hours",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Use the live chat or email form",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "support@yourstore.com",
+        "kind": "value"
+      },
+      {
+        "text": "https://www.yourstore.com/contact",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "we’ll notify you via email or through the website’s notification system",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "via live chat",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "Choose whether this address should be used for orders (e.g., \"Default for future orders\" or \"Only for specific orders\").",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "we don’t have access to or support for \"bloody platinum accounts\" or any unauthorized account types",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "contact form on our website",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "\"ShopEasy\", \"QuickBuy\"",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "www.yourstore.com",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "I can look up your order and process the refund for you",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "www.examplestore.com",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "StoreName.com",
+        "kind": "value"
+      }
+    ]
+  ]
+}

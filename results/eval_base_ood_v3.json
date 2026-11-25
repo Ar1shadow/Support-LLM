@@ -1,0 +1,379 @@
+{
+  "summary": {
+    "rubric": "v3",
+    "n": 50,
+    "n_valid": 50,
+    "judge_mean": 5.12,
+    "judge_ci95": [
+      4.32,
+      5.96
+    ],
+    "invented_rate": 0.06,
+    "judge_value_rate": 0.2,
+    "judge_claim_rate": 0.36,
+    "judge_any_invented_rate": 0.5,
+    "placeholder_rate": 0.48,
+    "mean_words": 123.3
+  },
+  "scores": [
+    8,
+    8,
+    9,
+    4,
+    3,
+    9,
+    8,
+    3,
+    9,
+    2,
+    2,
+    6,
+    2,
+    2,
+    2,
+    7,
+    9,
+    8,
+    8,
+    4,
+    2,
+    2,
+    2,
+    9,
+    3,
+    8,
+    3,
+    10,
+    6,
+    3,
+    3,
+    3,
+    2,
+    9,
+    8,
+    9,
+    8,
+    2,
+    3,
+    9,
+    3,
+    8,
+    2,
+    9,
+    5,
+    2,
+    4,
+    2,
+    2,
+    2
+  ],
+  "reasons": [
+    "The reply politely addresses the missing package by asking for an order or tracking number and gives clear next steps without inventing store-specific facts.",
+    "The reply directly addresses the processing delay, asks for the order number, and gives clear steps to find it, with a polite tone and no invented concrete details.",
+    "The reply directly addresses the login issue with clear, actionable troubleshooting steps, stays polite and concise, and uses a placeholder rather than inventing any store-specific details.",
+    "The reply is polite and asks for relevant order details, but it includes an unsupported store-specific cancellation policy claim.",
+    "The reply gives helpful steps, but it invents concrete response and refund timeframes that the customer may rely on.",
+    "The reply directly addresses the broken item, provides clear actionable steps, uses placeholders for unknown details, and maintains a polite professional tone with only minor redundancy.",
+    "The reply addresses the address-change request, requests necessary placeholders/details, and maintains a polite tone, though it could be more concrete about the actual update steps.",
+    "The reply gives clear steps for both requests, but it invents a store-specific cancellation policy without a placeholder, which the customer may rely on.",
+    "The reply addresses both the missing package and duplicate charge, requests necessary details, outlines next steps, and stays polite without inventing facts.",
+    "The reply addresses both questions but relies on an invented 30-day exchange window and a concrete returns URL, making the core return/exchange guidance unsafe.",
+    "The reply invents store-specific payment-change eligibility and dashboard capability, and the main payment-method guidance depends on those unsupported claims.",
+    "It gives clear, actionable password-reset steps and uses placeholders appropriately, but it does not actually explain how to recover a forgotten username, which was half the customer's request.",
+    "The main delivery and customs answers rely on concrete timeframes and store-policy claims that were not provided or placed in placeholders.",
+    "The assistant refuses the core request and relies on an unsupported store-specific promise about future emails, making the answer unreliable and not directly actionable.",
+    "The main answer depends on the unverified claim that phone support exists, and it adds another invented store-specific claim about improving live support access.",
+    "The reply is professional, acknowledges the frustration, and asks for necessary details using a placeholder for the order number without inventing facts, though it could be more direct given the customer's repeated contacts.",
+    "The reply directly addresses the checkout crashing issue, offers concrete troubleshooting steps, and requests relevant details without inventing store-specific facts.",
+    "The reply politely acknowledges the invalid-code issue, asks for relevant details, and offers concrete troubleshooting steps without inventing store-specific facts.",
+    "The reply directly addresses the tracking issue with clear, actionable steps, uses a placeholder for order details, and maintains a polite professional tone without inventing store-specific facts.",
+    "The reply is clear and actionable, but it invents a delivery-format capability by offering email or downloadable PDF without a placeholder.",
+    "The reply is polite and asks for order details, but it invents a free-replacement policy that the store did not state.",
+    "The main answer asserts store-specific PayPal and card acceptance without a placeholder, so the reply depends on an invented claim.",
+    "The main answer relies on invented refund timelines and payment-method specifics, so it could mislead the customer about when to expect the money.",
+    "The reply directly confirms availability and politely offers assistance, with no invented details or unnecessary padding.",
+    "The reply addresses the unsubscribe request with clear steps, but it invents a store-specific privacy preferences URL that the customer is likely to visit.",
+    "Clear, practical steps with a placeholder and no invented specifics, though it pushes most action onto the customer and redundantly tells them to contact the store they are already messaging.",
+    "It addresses the weather question and gives actionable advice, but it names specific weather websites/apps not provided by the customer, which the customer is likely to act on.",
+    "The reply directly fulfills the customer's request with a relevant poem, uses a polite tone, and contains no invented store-specific facts or values.",
+    "The reply politely acknowledges the issue and requests verification details using a placeholder, but it does not yet provide concrete resolution steps for the missing delivery.",
+    "The reply gives generic cancellation steps, but it includes an unsupported 24-hour cancellation-window claim that the customer may rely on.",
+    "The reply politely declines and avoids inventing a number, but it does not give the requested phone number or concrete steps to find it.",
+    "It redirects the customer appropriately but asserts a store-specific pickup capability without a placeholder, which the customer is likely to rely on.",
+    "The reply invents store-specific price-matching and return policies instead of using placeholders or confirming details, and the main answers depend on those invented claims.",
+    "The reply politely declines to recommend a specific lawyer while providing concrete, actionable steps and avoiding invented store facts or values.",
+    "The reply politely clarifies it cannot provide a stock price and gives actionable suggestions to check financial sites, without inventing store-specific facts.",
+    "The reply directly acknowledges the missing parcel and asks for the specific details needed to investigate, with a polite and professional tone and no invented values or claims.",
+    "The reply addresses the cancellation request and asks for concrete information, without inventing store-specific facts or policies, though it could be more concise and direct.",
+    "The reply gives helpful steps, but it invents the store’s refund/replacement capability for broken items rather than framing it conditionally or using a policy placeholder.",
+    "The reply gives clear password-reset steps, but it invents a concrete 10-minute waiting time that the customer may rely on.",
+    "The reply directly answers that the address can be changed, asks for the order number and new address, and uses placeholders for store-specific contact details without inventing facts.",
+    "The reply is helpful and asks for the order number, but it invents a store-specific return-code process that the customer may rely on.",
+    "The reply acknowledges the double-charge complaint, politely requests the necessary details to investigate, and avoids inventing any concrete values or store policies.",
+    "The reply invents a store URL and a concrete cancellation-window policy, and the customer is likely to rely on these to act.",
+    "It directly addresses both requests, asks for the necessary order number using a placeholder, and gives clear next steps in a polite tone without inventing concrete fees or policies.",
+    "It provides the requested phone number only as a placeholder and adds confusing padding asking the customer to fill it, so it is not concrete or actionable, but it invents no store-specific facts.",
+    "The main answer depends on an unverified warehouse-address policy and unsupported collection-point/appointment capabilities.",
+    "The reply is polite but asks again for the order number already provided and only requests a date, offering no concrete verification or actionable next steps for a delivered-but-not-received order.",
+    "The main answer depends on invented payment-method-specific processing times that the customer may rely on to determine when the refund will arrive.",
+    "The main answer invents a specific weather forecast, including temperatures and conditions, which the customer did not provide and which should not be stated as fact.",
+    "The reply directly answers the question, but its main answer asserts a store-specific no-price-matching policy as plain fact with no placeholder or source."
+  ],
+  "invented": [
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "Cancellations are usually only possible before the order has been shipped.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "within 24–48 hours",
+        "kind": "value"
+      },
+      {
+        "text": "within 5–7 business days",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Cancellations are usually only possible before the order has been shipped. If the order has already shipped, cancellation may not be possible, and you may need to contact us directly.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "within 30 days of delivery",
+        "kind": "claim"
+      },
+      {
+        "text": "https://www.yourstore.com/returns",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "we can only assist with this if the order hasn't been processed or shipped yet",
+        "kind": "claim"
+      },
+      {
+        "text": "If your order is still in the \"processing\" or \"pending\" status, you can update the payment method through your account dashboard.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "3 to 10 business days",
+        "kind": "value"
+      },
+      {
+        "text": "Standard shipping usually takes 5–7 business days",
+        "kind": "value"
+      },
+      {
+        "text": "expedited options can deliver in 3–5 business days",
+        "kind": "value"
+      },
+      {
+        "text": "We do not charge customs duties or fees on your behalf",
+        "kind": "claim"
+      },
+      {
+        "text": "These fees are the responsibility of the recipient and are not included in the shipping cost",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "We respect your privacy and will not send you any more emails after your request is processed.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "we do have a phone support line available",
+        "kind": "claim"
+      },
+      {
+        "text": "our team is currently working to improve access to live support",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "sent via email or as a downloadable PDF",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "at no extra cost",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "you can pay with PayPal in addition to credit or debit cards",
+        "kind": "claim"
+      },
+      {
+        "text": "We accept both payment methods during checkout",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "Typically, it takes **3–7 business days** for the refund to appear in your bank account after approval.",
+        "kind": "value"
+      },
+      {
+        "text": "bank transfer, debit card, or credit card",
+        "kind": "value"
+      },
+      {
+        "text": "If it’s still not there after **10–14 business days**",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "https://www.yourstore.com/privacy",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "Weather.com",
+        "kind": "value"
+      },
+      {
+        "text": "AccuWeather",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Most stores allow cancellation within 24 hours of purchase.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "They will be able to provide you with the correct pickup location and any necessary details based on your order.",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "We do not offer price matching with Amazon",
+        "kind": "claim"
+      },
+      {
+        "text": "Most of our return policies state that opened perfumes are generally not eligible for return after 90 days, as they are considered non-returnable once opened due to hygiene and safety concerns",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "Pour que nous puissions vous rembourser en cas d’article arrivé cassé",
+        "kind": "claim"
+      },
+      {
+        "text": "organiser un remboursement ou un remplacement",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "dans les 10 minutes",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "nous vous enverrons un code de retour et les instructions pour envoyer les chaussures",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "[www.votre-site.com](https://www.votre-site.com)",
+        "kind": "value"
+      },
+      {
+        "text": "L’annulation est généralement possible uniquement avant le traitement de la commande ou dans les 48 heures suivant la validation.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "Actuellement, nous ne communiquons pas publiquement l’adresse exacte de notre entrepôt pour des raisons de sécurité et de protection de nos opérations logistiques.",
+        "kind": "claim"
+      },
+      {
+        "text": "vous pouvez récupérer votre colis directement en vous rendant dans un point de collecte",
+        "kind": "claim"
+      },
+      {
+        "text": "nous pourrons vous indiquer les points de collecte les plus proches ou vous aider à organiser un rendez-vous pour récupérer votre colis",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "Carte bancaire : le remboursement est généralement effectué entre 3 et 7 jours ouvrés après l’acceptation",
+        "kind": "value"
+      },
+      {
+        "text": "Virement bancaire : il peut prendre 3 à 5 jours ouvrés",
+        "kind": "value"
+      },
+      {
+        "text": "Paiement par PayPal : le remboursement est généralement effectué en 1 à 3 jours ouvrés",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "partiellement ensoleillé avec des températures allant de 12 à 18 °C",
+        "kind": "value"
+      },
+      {
+        "text": "quelques nuages le matin, mais le jour sera généralement ensoleillé",
+        "kind": "value"
+      }
+    ],
+    [
+      {
+        "text": "Actuellement, nous ne faisons pas d’alignement de prix avec Amazon.",
+        "kind": "claim"
+      }
+    ]
+  ]
+}
