@@ -8,26 +8,29 @@ load_dotenv()
 client = OpenAI(base_url=os.environ.get("JUDGE_BASE_URL"), api_key=os.environ["JUDGE_API_KEY"])
 JUDGE_MODEL = os.environ["JUDGE_MODEL"]
 
-# 两个裁判共用的“编造事实”定义：value（具体数值）与 claim（规则/流程/能力）
+# 两个裁判共用的“编造事实”定义：占位符视为对系统真实数据的引用，不算编造；
+# 只有直接写出的具体值（value）或纯文字的店铺规则/能力/已完成动作（claim）才算
 # 注意：拼进模板后会被 .format()，所以字面花括号要写四层 {{{{...}}}}
-INVENTED_RULES = """Invented value: a concrete detail the customer did not give, written literally instead of as a
-placeholder. Examples: a phone number, email, URL, business hours, a fee or price, a processing time
-or deadline like "3-5 business days" or "within 24 hours", a list of supported payment methods.
-A placeholder in its place ({{{{Customer Support Phone Number}}}}, {{{{Website URL}}}}) is fine.
-Hedging does not excuse a concrete value (a number, time window, fee or contact detail): "typically 5-7 business days" is still an invented value.
+INVENTED_RULES = """Placeholders: text in double braces such as {{{{Order Number}}}} or {{{{Cancellation Period}}}} is a reference
+to the store's real data, filled in by the system. Using a placeholder is never an invented fact, whatever it stands for.
 
-Invented claim: a store-specific rule, process, capability or completed action stated as fact.
-Examples: "orders can only be cancelled before shipping", "a {{{{Cancellation Fee}}}} applies",
-"you can cancel within {{{{Cancellation Period}}}}", "click the 'Cancel Order' button under
-'{{{{Online Order Interaction}}}}'", "we offer payment plans / store credit / live chat",
-"I have cancelled your order". Wrapping a rule, process or capability in a placeholder does not make it acceptable.
-The placeholder hides the value, but the rule or capability is still made up.
-A step naming a specific button, page or menu through a non-value placeholder is a claim.
+Invented value: a concrete detail the customer did not give, written out instead of as a placeholder:
+phone number, email, URL, business hours, fee or price, a time such as "3-5 business days",
+a list of payment methods. Hedging ("typically", "usually") does not excuse it.
 
-Not invented: a placeholder standing for one value the store certainly has ({{{{Customer Support Phone Number}}}},
-{{{{Website URL}}}}); generic navigation wording ("My Orders", "Account Settings", "Forgot PIN"); a generic
-3-5 step flow ("log in, open My Orders, select the order, choose Cancel"); hedged statements such as
-"if your order has not shipped yet, it can usually be cancelled" or "if a cancellation window applies, ...".
+Invented claim: a store-specific rule, policy, capability or completed action stated in plain text with no
+placeholder, e.g. "orders can only be cancelled before shipping", "we offer payment plans", "I have cancelled your order".
+
+Not invented: generic steps any store has ("log in, open My Orders, choose Cancel"); hedged conditionals
+without a concrete value ("if it has not shipped, it can usually be cancelled").
+"""
+
+CRITERIA = """In order of importance:
+1. It addresses what the customer actually asked.
+2. It gives concrete, actionable steps.
+3. It does not invent facts; unknown details must be placeholders like {{{{Order Number}}}}.
+4. Professional, polite tone without padding. Length alone earns no points.
+
 """
 
 POINTWISE = """You are grading a reply written by an online store's customer-support assistant.
@@ -41,29 +44,16 @@ Reference reply by a support expert (guidance only, the candidate does not need 
 Candidate reply:
 {candidate}
 
-The reference may itself contain invented values or claims; it does not make them acceptable in the candidate.
-A placeholder standing for a single value is not a defect by itself (see the invented-claim rule below).
-
-Score the candidate from 1 to 10. In order of importance:
-1. It addresses what the customer actually asked.
-2. It gives concrete, actionable steps.
-3. It does not invent specific facts; unknown details must be placeholders like {{{{Order Number}}}}.
-4. Professional, polite tone without padding. Length alone earns no points.
-
-Hard rule: the candidate must not invent facts. Two kinds count:
-
-""" + INVENTED_RULES + """
-If the candidate contains any invented value or invented claim, the score is lower than 5:
-Score 4 if it is a minor aside, 3 if the customer is likely to act on it
-(e.g. visit the URL, call the number, wait that long, rely on the rule), 2 if the main answer depends on it.
-Using placeholders elsewhere does not excuse an invented item. Name each invented item in "invented".
+Score the candidate from 1 to 10. """ + CRITERIA + INVENTED_RULES + """
+The reference may itself contain invented items; that does not excuse them in the candidate.
+If the candidate contains any invented value or claim, the score is lower than 5: 4 if it is a minor aside,
+3 if the customer is likely to act on it (visit the URL, call the number, wait that long, rely on the rule),
+2 if the main answer depends on it.
 
 Return only JSON: {{"score": <integer 1-10>, "invented": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "reason": "<one sentence>"}}
 Use an empty list for "invented" if nothing is invented."""
 
 PAIRWISE = """You are comparing two replies from an online store's customer-support assistant.
-The assistant does not know the store's real data. Text like {{{{Order Number}}}} is a placeholder the system fills in
-later. A placeholder standing for a single value is not a defect by itself (see the invented-claim rule below).
 
 Customer message:
 {question}
@@ -74,22 +64,11 @@ Reply A:
 Reply B:
 {b}
 
-Which reply serves the customer better? In order of importance:
-1. It addresses what the customer actually asked.
-2. It gives concrete, actionable steps.
-3. It does not invent specific facts; unknown details must be placeholders like {{{{Order Number}}}}.
-4. Professional, polite tone without padding. Length alone earns no points.
+Which reply serves the customer better? """ + CRITERIA + INVENTED_RULES + """
+A reply with an invented item the customer would act on loses, unless the other fails criterion 1;
+if both invent, prefer the one whose invented items matter less. Do not prefer a reply for its length or formatting.
 
-Hard rule: a reply must not invent facts. Two kinds count:
-
-""" + INVENTED_RULES + """
-A reply with an invented value or claim the customer is likely to act on loses to one without,
-unless that other reply fails criterion 1.
-If both replies invent, prefer the one whose invented items matter less to the answer (fewer, or only minor asides); otherwise judge on criteria 1-2. Any invented item, even a minor aside, counts against a reply under criterion 3.
-Do not prefer a reply for its length or formatting.
-List the invented items of each reply separately.
-
-Return only JSON: {{"winner": "A" or "B" or "tie", "invented_a": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "invented_b": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "reason": "<one sentence>"}}
+Return only JSON: {{"winner": "A" | "B" | "tie", "invented_a": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "invented_b": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "reason": "<one sentence>"}}
 Use an empty list if a reply invents nothing."""
 
 def _extract_json(content):

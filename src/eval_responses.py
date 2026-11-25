@@ -21,7 +21,7 @@ valid_kinds = [kinds(inv) for s, _, inv in judged if s is not None]
 valid = [s for s in scores if s is not None]
 
 summary = {
-    "rubric": "v2",
+    "rubric": "v3",
     "n": len(recs),
     "n_valid": len(valid),
     "judge_mean": statistics.mean(valid),

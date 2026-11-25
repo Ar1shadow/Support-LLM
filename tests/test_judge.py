@@ -16,14 +16,17 @@ def test_kinds():
 
 def test_prompts_format():
     p = judge.POINTWISE.format(question="q", reference="r", candidate="c")
-    assert "{{Customer Support Phone Number}}" in p   # placeholder example survives formatting
-    assert "Invented claim" in p and "Invented value" in p
+    w = judge.PAIRWISE.format(question="q", a="aa", b="bb")
+    for t in (p, w):
+        assert "{{Order Number}}" in t            # 四层花括号渲染成占位符
+        assert "Invented claim" in t and "Invented value" in t
+        assert "never an invented fact" in t
+        assert "does not make it acceptable" not in t   # 旧规则：占位符包装也算 claim，已删除
+        assert '"kind": "value" | "claim"' in t
+    assert '"invented_a"' in w and '"invented_b"' in w
 
-def test_pairwise_format():
-    p = judge.PAIRWISE.format(question="q", a="aa", b="bb")
-    assert "{{Customer Support Phone Number}}" in p
-    assert "Invented claim" in p and "Invented value" in p
-    assert '"invented_a"' in p and '"invented_b"' in p
+def test_invented_rules_stay_short():
+    assert len(judge.INVENTED_RULES) < 1100
 
 def test_merge_invented_swaps_order():
     v = {"text": "3-5 days", "kind": "value"}; c = {"text": "payment plans", "kind": "claim"}
@@ -83,8 +86,6 @@ def test_new_prompt_sentences():
     p = judge.POINTWISE.format(question="q", reference="r", candidate="c")
     w = judge.PAIRWISE.format(question="q", a="a", b="b")
     for t in (p, w):
-        assert "Hedging does not excuse a concrete value" in t
-        assert "A placeholder standing for a single value is not a defect by itself" in t
-        assert '"kind": "value" | "claim"' in t
-    assert "may itself contain invented values or claims" in p
-    assert "If both replies invent, prefer" in w
+        assert "Hedging" in t and "does not excuse it" in t
+    assert "may itself contain invented items" in p
+    assert "if both invent, prefer" in w

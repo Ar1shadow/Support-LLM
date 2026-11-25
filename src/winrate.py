@@ -1,7 +1,7 @@
 """两两对比胜率：用裁判模型比较两组回复，汇总统计并把逐条判决写入 results/。"""
 # src/winrate.py
 # 用法: python src/winrate.py results/gen_dpo.jsonl results/gen_sft.jsonl [--out results/xxx.json]
-#       --out 默认 results/winrate_v2_<A 文件名>_vs_<B 文件名>.json
+#       --out 默认 results/winrate_v3_<A 文件名>_vs_<B 文件名>.json
 import argparse, json, os, statistics
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
@@ -14,7 +14,7 @@ p.add_argument("b")                     # B 组生成结果
 p.add_argument("--out", default=None)
 args = p.parse_args()
 stem = lambda path: os.path.splitext(os.path.basename(path))[0]
-out = args.out or f"results/winrate_v2_{stem(args.a)}_vs_{stem(args.b)}.json"
+out = args.out or f"results/winrate_v3_{stem(args.a)}_vs_{stem(args.b)}.json"
 
 a = [json.loads(l) for l in open(args.a)]
 b = [json.loads(l) for l in open(args.b)]
@@ -43,7 +43,7 @@ slots = [w for v in valid for w in (v["ab"], v["ba"]) if w != "tie"]   # 所有�
 # 某一侧（invented_a / invented_b）在某类 kind 上至少有 1 条标注的样本占 valid 的比例
 inv_rate = lambda side, kind: statistics.mean(kind in kinds(v[side]) for v in valid)
 summary = {
-    "rubric": "v2",
+    "rubric": "v3",
     "n": len(verdicts),
     "n_valid": len(valid),
     "n_failed": len(verdicts) - len(valid),
