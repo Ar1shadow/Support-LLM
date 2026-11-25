@@ -22,35 +22,39 @@ def test_prompts_format():
         assert "Invented claim" in t and "Invented value" in t
         assert "never an invented fact" in t
         assert "does not make it acceptable" not in t   # 旧规则：占位符包装也算 claim，已删除
-        assert '"kind": "value" | "claim"' in t
+    assert '"kind": "value" | "claim"' in p
     assert '"invented_a"' in w and '"invented_b"' in w
+    assert "quoted span" not in w            # pairwise 只返回类型，不引用原文
 
 def test_invented_rules_stay_short():
     assert len(judge.INVENTED_RULES) < 1100
 
+def test_parse_kinds():
+    assert judge.parse_kinds(["value", " Claim ", "value"]) == ["claim", "value"]
+    assert judge.parse_kinds(None) == [] and judge.parse_kinds("none") == []
+
+def test_parse_kinds_warns_on_unknown(capsys):
+    assert judge.parse_kinds(["value", "other"]) == ["value"]
+    assert capsys.readouterr().out.count("judge warning: dropped invented kind") == 1
+
 def test_merge_invented_swaps_order():
-    v = {"text": "3-5 days", "kind": "value"}; c = {"text": "payment plans", "kind": "claim"}
-    r1 = {"invented_a": [v], "invented_b": []}
-    r2 = {"invented_a": [c], "invented_b": []}      # swapped: slot A == response b
-    a, b = judge.merge_invented(r1, r2)
-    assert judge.kinds(a) == {"value"} and judge.kinds(b) == {"claim"}
+    r1 = {"invented_a": ["value"], "invented_b": []}
+    r2 = {"invented_a": ["claim"], "invented_b": []}      # swapped: slot A == response b
+    assert judge.merge_invented(r1, r2) == (["value"], ["claim"])
 
 def test_merge_invented_missing():
     assert judge.merge_invented({}, {}) == ([], [])
 
 def test_merge_invented_malformed_and_dedup():
-    v = {"text": "3-5 days", "kind": "value"}
-    r1 = {"invented_a": [v], "invented_b": "none"}
-    r2 = {"invented_a": 5, "invented_b": [v]}       # swapped: invented_b == a
-    a, b = judge.merge_invented(r1, r2)
-    assert a == [v] and b == []
+    r1 = {"invented_a": ["value"], "invented_b": "none"}
+    r2 = {"invented_a": 5, "invented_b": ["value"]}       # swapped: invented_b == a
+    assert judge.merge_invented(r1, r2) == (["value"], [])
 
 def test_compare_keeps_invented_when_one_order_fails(monkeypatch):
-    v = {"text": "x", "kind": "value"}
-    outs = iter([{"winner": "A", "invented_a": [v], "invented_b": []}, None])
+    outs = iter([{"winner": "A", "invented_a": ["value"], "invented_b": []}, None])
     monkeypatch.setattr(judge, "_call", lambda prompt: next(outs))
     r = judge.compare("q", "a", "b")
-    assert r["score"] is None and r["invented_a"] == [v] and r["invented_b"] == []
+    assert r["score"] is None and r["invented_a"] == ["value"] and r["invented_b"] == []
 
 def test_score_kept_when_invented_malformed(monkeypatch):
     monkeypatch.setattr(judge, "_call", lambda p: {"score": 7, "reason": "r", "invented": "none"})
@@ -63,9 +67,7 @@ def test_score_non_integer(monkeypatch):
     assert judge.score_with_reason("q", "r", "c") == (None, None, [])
 
 def test_merge_invented_r1_failed():
-    c = {"text": "plans", "kind": "claim"}; v = {"text": "5 days", "kind": "value"}
-    a, b = judge.merge_invented({}, {"invented_a": [c], "invented_b": [v]})
-    assert a == [v] and b == [c]
+    assert judge.merge_invented({}, {"invented_a": ["claim"], "invented_b": ["value"]}) == (["value"], ["claim"])
 
 def test_parse_invented_normalises_kind():
     assert judge.parse_invented([{"text": "x", "kind": " Claim "}]) == [{"text": "x", "kind": "claim"}]

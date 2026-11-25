@@ -5,7 +5,7 @@
 import argparse, json, os, statistics
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
-from judge import compare, kinds
+from judge import compare
 from metrics import bootstrap_ci
 
 p = argparse.ArgumentParser()
@@ -40,8 +40,8 @@ overall = rates(scores)
 decisive = overall["win"] + overall["lose"]
 flip = {"A": "B", "B": "A", "tie": "tie"}
 slots = [w for v in valid for w in (v["ab"], v["ba"]) if w != "tie"]   # 所有非平局判决选的槽位
-# 某一侧（invented_a / invented_b）在某类 kind 上至少有 1 条标注的样本占 valid 的比例
-inv_rate = lambda side, kind: statistics.mean(kind in kinds(v[side]) for v in valid)
+# 某一侧（invented_a / invented_b）被判出某类编造的样本占 valid 的比例
+inv_rate = lambda side, kind: statistics.mean(kind in v[side] for v in valid)
 summary = {
     "rubric": "v3",
     "n": len(verdicts),

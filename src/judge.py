@@ -68,8 +68,8 @@ Which reply serves the customer better? """ + CRITERIA + INVENTED_RULES + """
 A reply with an invented item the customer would act on loses, unless the other fails criterion 1;
 if both invent, prefer the one whose invented items matter less. Do not prefer a reply for its length or formatting.
 
-Return only JSON: {{"winner": "A" | "B" | "tie", "invented_a": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "invented_b": [{{"text": "<quoted span>", "kind": "value" | "claim"}}], "reason": "<one sentence>"}}
-Use an empty list if a reply invents nothing."""
+Return only JSON: {{"winner": "A" | "B" | "tie", "invented_a": [], "invented_b": [], "reason": "<one sentence>"}}
+"invented_a" / "invented_b" list which kinds of invented items each reply has: "value", "claim", both, or empty."""
 
 def _extract_json(content):
     """从文本里取第一个含 score 或 winner 的 JSON 对象：逐个 '{' 位置 raw_decode，找不到返回 None"""
@@ -139,28 +139,33 @@ def _winner(r):
     """裁判返回的 winner 规范成 "A" / "B" / "tie"；缺失或非法时为 None"""
     return {"a": "A", "b": "B", "tie": "tie"}.get(str(r.get("winner", "")).strip().lower())
 
-def _union(*lists):
-    """按 (text, kind) 去重合并，保持首次出现顺序"""
-    seen, out = set(), []
-    for it in (x for l in lists for x in l):
-        k = (it["text"], it["kind"])
-        if k not in seen:
-            seen.add(k); out.append(it)
-    return out
+def parse_kinds(raw):
+    """pairwise 返回的编造类型列表规范化：只保留 "value"/"claim"（去空白转小写），去重排序。
+    非 list 当作 []；未知类型打印一行警告后丢弃"""
+    if not isinstance(raw, list):
+        return []
+    out = set()
+    for k in raw:
+        k2 = str(k).strip().lower()
+        if k2 in ("value", "claim"):
+            out.add(k2)
+        else:
+            print(f"judge warning: dropped invented kind {repr(k)[:120]}")
+    return sorted(out)
 
 def merge_invented(r1, r2):
-    """合并两种顺序的 invented 标注，返回 (inv_a, inv_b)。
+    """合并两种顺序的编造类型，返回 (kinds_a, kinds_b)，均为排序后的 list。
     r1 为原顺序；r2 为交换顺序，其 invented_a 属于 b，invented_b 属于 a。格式非法的当作 []"""
-    inv_a = _union(parse_invented(r1.get("invented_a")), parse_invented(r2.get("invented_b")))
-    inv_b = _union(parse_invented(r1.get("invented_b")), parse_invented(r2.get("invented_a")))
-    return inv_a, inv_b
+    inv_a = set(parse_kinds(r1.get("invented_a"))) | set(parse_kinds(r2.get("invented_b")))
+    inv_b = set(parse_kinds(r1.get("invented_b"))) | set(parse_kinds(r2.get("invented_a")))
+    return sorted(inv_a), sorted(inv_b)
 
 def compare(question, a, b):
     """两种顺序各判一次，返回 dict：
     score: +1 = a 更好，-1 = b 更好，两种顺序的结论取平均；任一次失败为 None（不算平局）
     ab / ba: 原顺序、交换顺序的原始槽位结论（ba 里的 "A" 指 b），未翻转
     reason_ab / reason_ba: 两次判决的理由
-    invented_a / invented_b: 两种顺序合并去重后的编造条目 [{"text","kind"}]；某次失败时只含另一次的结果"""
+    invented_a / invented_b: 两种顺序合并后的编造类型 ["claim", "value"] 的子集；某次失败时只含另一次的结果"""
     r1 = _call(PAIRWISE.format(question=question, a=a, b=b)) or {}
     r2 = _call(PAIRWISE.format(question=question, a=b, b=a)) or {}
     ab, ba = _winner(r1), _winner(r2)
