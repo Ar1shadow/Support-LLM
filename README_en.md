@@ -59,31 +59,18 @@ pip freeze > requirements-infer.txt
 deactivate
 ```
 
-If `requirements-*.txt` already exist, reproduce with `pip install -r requirements-train.txt`.
 
-## Credentials
-
-```bash
-hf auth login     # Hugging Face token
-wandb login
-export JUDGE_BASE_URL=...  JUDGE_API_KEY=...  JUDGE_MODEL=...
-```
-
-The `JUDGE_*` variables can go in `.env`, which is listed in `.gitignore`.
-
-## Experiment log
-
-### 2026-11-25: first SFT run
+## SFT
 
 Model Qwen/Qwen3-4B-Instruct-2507, LoRA r=16 on all linear layers, lr 2e-4, 2 epochs, effective batch 16, fp16, 2 GPUs. Training took 5853 s; best eval loss 0.555 (checkpoint-1000).
 
 Eval sets: 270 test items (Bitext, in distribution) and 50 OOD items. "Pointwise" means the 1 to 10 score from `eval_responses.py`, which sees a reference reply. "Pairwise" means the A/B comparison from `winrate.py`, which sees no reference and judges each pair in both orders.
 
-#### Judge prompt changes
+### Judge prompt changes
 
 In v1 (e849d26) the pointwise prompt had four scoring criteria and one hard rule: writing out a concrete detail the customer never gave (phone, URL, processing time, fee and so on) caps the score at 4. The pairwise prompt had a single line, "judge helpfulness, correctness and whether it invents specific facts", and no criteria. The two judges disagreed: pointwise preferred SFT, while pairwise had base winning 70%. Item by item, 80 test items conflicted.
 
-v3 (7b75826, branch `invented-judging`) gives both judges the same standard:
+v3 (7b75826) gives both judges the same standard:
 
 - Both prompts share `CRITERIA` (the four scoring criteria) and `INVENTED_RULES` (what counts as invented).
 - A `{{...}}` placeholder is a reference to the store's real data that the system fills in at send time. It is never an invented fact.
@@ -93,7 +80,6 @@ v3 (7b75826, branch `invented-judging`) gives both judges the same standard:
 - When only one reply invents, it loses unless the other reply fails to answer the question. When both invent, the judge prefers the one whose inventions matter less.
 - `max_tokens` went from 1000 to 4000. Reasoning tokens count toward the limit, and at 1000 many outputs were cut off.
 
-An intermediate v2 also counted rules or flows wrapped in placeholders as claims. That penalised Bitext's template style rather than fabrication, so v3 removed it.
 
 #### Results
 
@@ -117,16 +103,48 @@ Pairwise (SFT wins / base wins / ties, then mean_score with 95% CI):
 
 Under v3 the number of items where the two judges conflict fell from 80 to 24.
 
-#### Findings
+>- On test, SFT cut written-out invented values from about 30% to about 5%. Plain-text claims did not drop; both models sit near 19% on test. SFT's claims cluster in `delivery_options` and `check_refund_policy`, where the Bitext reference answers themselves describe shipping options and refund policy in plain text.
+>- SFT shows no gain on OOD.
+>- Among the 116 test items where neither reply invents anything, base wins 88 and SFT wins 18. SFT often asks for more details instead of giving steps.
+>- 13 test questions contain an ID the customer supplied (for example bill #00108). SFT replaced all 13 with a placeholder; base kept every one. Bitext questions already use placeholders for IDs, and SFT picked up the habit, which would break in deployment.
+>- Next step: keep real IDs in the training questions, and select or add replies that give direct steps.
 
-- On test, SFT cut written-out invented values from about 30% to about 5%. Plain-text claims did not drop; both models sit near 19% on test. SFT's claims cluster in `delivery_options` and `check_refund_policy`, where the Bitext reference answers themselves describe shipping options and refund policy in plain text.
-- SFT shows no gain on OOD.
-- Among the 116 test items where neither reply invents anything, base wins 88 and SFT wins 18. SFT often asks for more details instead of giving steps.
-- 13 test questions contain an ID the customer supplied (for example bill #00108). SFT replaced all 13 with a placeholder; base kept every one. Bitext questions already use placeholders for IDs, and SFT picked up the habit, which would break in deployment.
-- Next step: keep real IDs in the training questions, and select or add replies that give direct steps.
-
-#### Known issues
+### Known issues
 
 Claim detection is noisy. On SFT's test replies, pairwise flags 92 items with a claim and pointwise flags 51, with 45 in common. The two judges handle phrases like "Live Chat on our website" differently. Manual calibration has not been done yet.
 
 Result files: v1 is `results/eval_{base,sft}_{test,ood}.json` and `results/winrate_gen_*.json`; v3 is `results/eval_*_v3.json` and `results/winrate_v3_*.json`.
+
+## Ablation (LoRA configuration)
+
+Using the SFT r16 run as the baseline, each run changes one LoRA setting: rank 4, rank 64, attention layers only, or QLoRA. Everything else matches SFT (alpha = 2r, seed 42), and evaluation uses v3 pointwise. Generation quality on test does not differ significantly between runs; only training cost differs.
+
+### Results
+
+| Run | Trainable params | Peak memory per GPU (GB) | Training time (min) | Eval loss |
+|---|---|---|---|---|
+| r4 | 8.26M | 10.59 | 104.5 | 0.575 |
+| r16 (baseline) | 33.03M | 10.99 | 97.6 | 0.555 |
+| r64 | 132.12M | 12.60 | 105.5 | 0.545 |
+| attn | 11.80M | 10.18 | 94.5 | 0.591 |
+| qlora | 33.03M | 5.22 | 111.4 | 0.560 |
+
+The difference is the mean per-item paired difference against r16 with its 95% CI. Invention rates are value / claim:
+
+| Run | Test mean | Test diff | Test invented | OOD mean | OOD diff | OOD invented |
+|---|---|---|---|---|---|---|
+| r4 | 6.33 | -0.15 [-0.39, 0.09] | 6.7% / 20.0% | 5.34 | +0.04 [-0.34, 0.40] | 2% / 24% |
+| r16 | 6.48 | | 5.2% / 18.9% | 5.30 | | 2% / 24% |
+| r64 | 6.29 | -0.20 [-0.47, 0.07] | 5.2% / 21.1% | 4.64 | -0.66 [-1.24, -0.10] | 0% / 40% |
+| attn | 6.33 | -0.16 [-0.42, 0.10] | 6.7% / 19.6% | 5.14 | -0.16 [-0.60, 0.26] | 4% / 28% |
+| qlora | 6.65 | +0.17 [-0.14, 0.46] | 5.9% / 17.8% | 5.12 | -0.18 [-0.86, 0.48] | 2% / 32% |
+
+### Findings
+
+- Every run learned the same Bitext template. On test, every CI against r16 includes 0. The problems found in SFT remain too: for the 13 questions with a customer's own number, all five runs replace the number with a placeholder. The bottleneck is the data, not the LoRA configuration.
+- Rank has diminishing returns, and r64 uses 15% more memory. Attention-only has the worst eval loss. QLoRA halves memory with the same quality but trains 14% slower (4-bit dequantization). Default to r16; use QLoRA when memory is short.
+
+### Problems and limitations
+
+- Recent TRL casts a quantized model's adapter to bf16, which clashes with the fp16 GradScaler and crashed QLoRA training. The fix (2f33d0f) casts the adapter back to fp32 before training.
+- One seed per run, and training times vary by about ±7%, so small gaps are unreliable. r64 scores 0.66 lower on OOD, but OOD has only 50 items and this was not followed up.

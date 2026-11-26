@@ -1,0 +1,269 @@
+{
+  "summary": {
+    "rubric": "v3",
+    "n": 50,
+    "n_valid": 50,
+    "judge_mean": 5.14,
+    "judge_ci95": [
+      4.54,
+      5.8
+    ],
+    "invented_rate": 0,
+    "judge_value_rate": 0.04,
+    "judge_claim_rate": 0.28,
+    "judge_any_invented_rate": 0.3,
+    "placeholder_rate": 0.34,
+    "mean_words": 102.34
+  },
+  "scores": [
+    8,
+    6,
+    7,
+    8,
+    3,
+    3,
+    6,
+    8,
+    5,
+    7,
+    3,
+    5,
+    2,
+    6,
+    8,
+    3,
+    4,
+    6,
+    7,
+    2,
+    7,
+    2,
+    5,
+    5,
+    3,
+    5,
+    3,
+    9,
+    4,
+    8,
+    2,
+    2,
+    2,
+    7,
+    3,
+    6,
+    7,
+    7,
+    9,
+    3,
+    7,
+    7,
+    6,
+    6,
+    9,
+    2,
+    5,
+    2,
+    5,
+    2
+  ],
+  "reasons": [
+    "The reply politely addresses the package delay and asks for a tracking or order number via placeholders, enabling a concrete status check without inventing facts.",
+    "The reply politely acknowledges the processing concern and asks for an order number to investigate, but it is awkwardly phrased and padded without providing any status explanation or concrete update.",
+    "The reply politely addresses the login issue and gives actionable generic troubleshooting steps without inventing details, but it omits obvious next steps like a password reset and includes some padding.",
+    "The reply directly addresses the cancellation request and asks for the order number via a placeholder, with a polite tone but some unnecessary padding.",
+    "The reply points the customer to support but invents that the store offers Live Chat and gives no concrete refund steps beyond contacting support.",
+    "The reply is polite but circular and vague, telling the customer to contact support without concrete steps, and it implies the store can arrange replacement or repair without a placeholder.",
+    "The reply addresses the request and asks for the new address, but it lacks an order identifier and concrete verification steps.",
+    "The reply addresses both requests, asks for the necessary order and email details to proceed, and uses a professional tone without inventing policies or values.",
+    "Polite and acknowledges both issues, but it only asks vaguely for more details and gives no concrete next steps or placeholders for order information.",
+    "It addresses both requests with a polite tone and generic actionable exchange steps, but the sale-end answer is vague rather than concrete or placeholder-based.",
+    "The reply is polite but gives generic self-service steps and implies a placed order can be modified through the cart/checkout flow, which is not confirmed and may mislead the customer.",
+    "The reply gives clear password-reset steps and uses a placeholder URL, but it does not address the customer's forgotten username, so it only partially resolves the request.",
+    "The main customs-fee answer invents a store policy instead of using a placeholder, so the customer could rely on an unverified claim.",
+    "It acknowledges both requests and asks for identifying information, but the next steps are vague and padded rather than concrete.",
+    "The reply directly answers the phone-number question using placeholders for unknown details, provides actionable contact information, and remains polite, though it is somewhat padded.",
+    "The reply is polite and does not invent facts, but it mainly offers padding and asks the already-frustrated customer to restate the issue instead of addressing the repeated failed contact or providing concrete escalation steps.",
+    "The reply acknowledges the problem and asks for details, but it offers no concrete troubleshooting or actionable steps and is padded with generic reassurance.",
+    "The reply politely addresses the promo-code issue with generic troubleshooting steps and uses placeholders for unknown details, but it does not specifically investigate SAVE20 or explain why it is invalid.",
+    "The reply acknowledges the tracking issue and asks for the order email as a clear next step, with a polite tone and no concrete invented details.",
+    "The main answer depends on an unverified store capability claim that the store can provide a company-name invoice, rather than stating it conditionally or using a placeholder.",
+    "The reply acknowledges the wrong-item issue and asks for the order number, but it offers only a minimal actionable step and includes some padding.",
+    "The main answer asserts store-specific payment capabilities and a card-brand list without placeholders, so the customer would rely on invented facts.",
+    "The reply is polite and requests information needed to investigate, but it does not answer the customer's central question about when the refund will arrive and is padded with generic reassurance.",
+    "The reply acknowledges the customer and asks for more details, but it is padded and offers no concrete steps beyond requesting information.",
+    "The reply gives useful unsubscribe steps, but it invents a reply-based unsubscribe capability and promises prompt processing without a placeholder.",
+    "The reply is polite and offers generic steps, but it shifts most action to the customer and does not provide store-specific help or ask for order details to resolve the misdelivery.",
+    "The reply only promises to check and delivers no actual forecast or concrete steps, and it asserts a capability (providing weather forecasts) in plain text without a placeholder, which the customer would rely on.",
+    "The assistant directly fulfills the customer's request with a shoe-themed poem in a polite tone and invents no store facts.",
+    "It politely acknowledges the issue but does not actually check the provided order or give concrete next steps, instead asking for extra information.",
+    "It directly addresses the cancellation request with clear, generic steps and a polite tone, though it is somewhat padded and does not actually perform the cancellation.",
+    "The customer explicitly asked for the real support phone number with no placeholders, but the candidate only provided a placeholder, so it is not actionable.",
+    "The reply hinges on an unverified store capability to locate the warehouse and disclose its exact address for pickup, rather than confirming availability or using a placeholder.",
+    "The candidate invents a store price-match guarantee as the main answer to the first question and gives no concrete return-policy answer for opened perfume after 90 days.",
+    "The reply politely addresses the request by explaining it cannot recommend a specific lawyer and offering actionable general steps to find one, though it does not directly satisfy the request for a named recommendation.",
+    "The reply does not provide the stock price and invents an investor relations team/capability, which the customer may act on.",
+    "It acknowledges the missing parcel and asks for order/tracking details with placeholders, but the opening “Génial” is tone-deaf and the suggested inbox check is only a generic step.",
+    "It acknowledges the cancellation request and asks for the necessary order identifiers using placeholders, but it gives limited concrete cancellation steps and includes some vague padding.",
+    "It directly answers the refund question with actionable steps and uses placeholders for contact details, but it is verbose and redundantly tells the customer to contact support as if they were not already doing so.",
+    "The reply directly addresses the forgotten password issue with clear, generic, actionable reset steps and a polite tone, without inventing store-specific details.",
+    "The reply confirms a store-specific capability and promises to update the order without any placeholder or verification, so the main answer relies on an invented claim.",
+    "The reply addresses the return request with clear steps and uses placeholders for contact details, though it is somewhat repetitive and generic.",
+    "The reply acknowledges the double-charge complaint, apologizes, and gives actionable contact steps using placeholders, though it redirects rather than resolving directly.",
+    "The reply acknowledges both requests and asks for order details, but the account-deletion guidance is vague and the response is padded without concrete steps.",
+    "The reply addresses both requests politely and asks for the new address, but it does not provide a concrete shipping cost or precise next steps beyond consulting the site/contacting support.",
+    "The reply directly provides the customer support phone number via the correct placeholder, stays polite, and contains no invented facts.",
+    "The reply does not give the requested exact warehouse address and instead relies on an unverified store page and claimed content.",
+    "The reply acknowledges the issue and says it will check, but it gives no concrete next steps or resolution and keeps the customer waiting without actionable guidance.",
+    "The reply gives a concrete refund timeframe not provided by the customer or as a placeholder, and this invented value is central to answering when the refund will arrive.",
+    "The reply acknowledges the weather question and suggests a generic weather service, but it does not provide the actual forecast and offers only vague, non-specific guidance with some padding.",
+    "The main answer relies on an unsupported store-specific capability/limitation about not being able to compare prices directly with Amazon, so it is an invented claim rather than a placeholder."
+  ],
+  "invented": [
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "Live Chat on our website",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "arranging for a replacement or repair",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "To add another item to your order, please go to the \"Order Summary\" or \"Shopping Cart\" section of your online store.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "customs fees are generally not charged by us for international shipments",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "We can certainly accommodate that request.",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "You can definitely pay with PayPal, and it's one of our most popular choices.",
+        "kind": "claim"
+      },
+      {
+        "text": "we also accept credit/debit cards, including Visa, Mastercard, and American Express",
+        "kind": "value"
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "text": "you can reply to any newsletter email with the word \"Unsubscribe\" in the subject line or body of the email",
+        "kind": "claim"
+      },
+      {
+        "text": "Our team will promptly process your request and ensure that you are no longer receiving our newsletter",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "I can provide you with the weather forecast for Paris tomorrow",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "I will be able to locate the warehouse and provide you with the precise address for pickup",
+        "kind": "claim"
+      }
+    ],
+    [
+      {
+        "text": "our company does offer a price match guarantee",
+        "kind": "claim"
+      },
+      {
+        "text": "If you find a lower price for the same product on Amazon, we will match it for you",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "our investor relations team",
+        "kind": "claim"
+      },
+      {
+        "text": "They will have the latest updates on our stock price",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "nous ferons le nécessaire pour mettre à jour votre commande",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "text": "notre page \"Retours et Retrait\" sur notre site web",
+        "kind": "claim"
+      },
+      {
+        "text": "Vous y trouverez toutes les informations nécessaires, y compris l'adresse de notre entrepôt et les horaires de retrait",
+        "kind": "claim"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "5 à 10 jours ouvrés suivant l'acceptation de la demande",
+        "kind": "value"
+      }
+    ],
+    [],
+    [
+      {
+        "text": "nous ne sommes pas en mesure de comparer directement les prix avec Amazon",
+        "kind": "claim"
+      }
+    ]
+  ]
+}
