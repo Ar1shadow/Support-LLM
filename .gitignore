@@ -2,7 +2,8 @@
 .venv-train/
 .venv-infer/
 .venv*/
-
+.superpowers/
+.pytest_cache/
 # 数据（处理后的数据与 ood_raw.jsonl 均不提交）
 !data/.gitkeep
 !data/ood_raw.jsonl
